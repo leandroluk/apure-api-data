@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+git diff HEAD --quiet && npm run test:ci:u && npm run test:ci:i

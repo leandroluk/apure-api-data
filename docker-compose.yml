@@ -9,7 +9,7 @@ services:
     image: mongo
     container_name: apure-api-data_mongo
     hostname: mongo
-    ports: [ 40001:27017 ]
+    ports: [ 40000:27017 ]
     networks: [ apure-api-data ]
     environment:
       MONGO_INITDB_ROOT_USERNAME: mongo

@@ -1,18 +1,25 @@
 FROM node as builder
 WORKDIR /app
 COPY . .
-RUN \
-  npm install --frozen-lockfile && \
-  npm build
+RUN yarn
+RUN yarn esbuild src \
+  --outfile=dist/index.js \
+  --bundle \
+  --minify \
+  --platform=node \
+  --tree-shaking=true \
+  --external:swagger-ui-express
 
-FROM alpine as runner
+FROM node as runner
 ENV \
-  # APP
-  NODE_ENV="development" \
-  PORT="3000"
-# other env vars goes here
-RUN apk add --update nodejs
+  # NODE_ENV="development" \
+  PORT=3000 \
+  DEFAULTS_TTL=31536000000 \
+  DB_MONGO="mongodb://mongo:mongo@localhost:40000/db?authSource=admin" \
+  DB_LIMIT=50 \
+  JWT_SECRET="secret" 
 WORKDIR /app
-COPY --from=builder /app/dist/ /app/
+RUN npm i swagger-ui-express
+COPY --from=builder /app/dist/ /app
 EXPOSE ${PORT}
-CMD node index.js
+CMD node ./index.js
