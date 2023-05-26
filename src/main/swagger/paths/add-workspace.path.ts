@@ -10,7 +10,7 @@ export const addWorkspacePath: OpenAPIV3.PathsObject = {
     put: {
       tags: [workspaceTag.name],
       operationId: "addWorkspace",
-      summary: "Confirm email of User",
+      summary: "Add workspace",
       requestBody: {
         content: {
           "application/json": {
@@ -26,10 +26,27 @@ export const addWorkspacePath: OpenAPIV3.PathsObject = {
         }
       },
       responses: {
-        200: { description: "ok" },
+        201: {
+          description: "created",
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                required: [],
+                properties: {
+                  _id: workspaceDTO.properties._id,
+                  _timestamp: workspaceDTO.properties._timestamp,
+                  _created: workspaceDTO.properties._created,
+                  _removed: workspaceDTO.properties._removed,
+                  name: workspaceDTO.properties.name,
+                  ownerCnpj: workspaceDTO.properties.ownerCnpj
+                }
+              } satisfies IObjectSchema<IAddWorkspaceCase.Result>
+            }
+          }
+        },
         400: swaggerHelper.commonResponses[400],
-        401: swaggerHelper.commonResponses[401],
-        403: swaggerHelper.commonResponses[403]
+        401: swaggerHelper.commonResponses[401]
       }
     }
   }
