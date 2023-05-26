@@ -55,6 +55,22 @@
         "multilineDetection": "brackets"
       }
     ],
+    "@typescript-eslint/indent": [
+      "error",
+      2,
+      {
+        "CallExpression": {
+          "arguments": "first"
+        },
+        "FunctionDeclaration": {
+          "parameters": "first"
+        },
+        "FunctionExpression": {
+          "parameters": "first"
+        },
+        "offsetTernaryExpressions": true
+      }
+    ],
     "@typescript-eslint/semi": "off",
     // javascript
     "max-len": [
@@ -63,10 +79,7 @@
         "code": 120
       }
     ],
-    "indent": [
-      "error",
-      2
-    ],
+    "indent": "off",
     "semi": [
       "error",
       "always"
@@ -103,7 +116,8 @@
   "overrides": [
     {
       "files": [
-        "./tests/**/*.ts"
+        "./tests/**/*.ts",
+        "./mocks/**/*.ts"
       ],
       "rules": {
         "@typescript-eslint/no-empty-function": "off",
