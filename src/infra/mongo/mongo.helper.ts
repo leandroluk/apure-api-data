@@ -29,9 +29,9 @@ export const mongoHelper = {
     mongoHelper.client = await MongoClient.connect(vars.db.mongo);
   },
 
-  collection (collectionName: string): Collection {
+  collection<T> (collectionName: string): Collection<T> {
     const collection = mongoHelper.client.db().collection(collectionName);
-    return collection;
+    return collection as unknown as Collection<T>;
   },
 
   async search<T extends IIndexable> (

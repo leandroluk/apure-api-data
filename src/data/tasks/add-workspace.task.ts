@@ -8,7 +8,9 @@ export class AddWorkspaceTask implements IAddWorkspaceTask {
     private readonly addWorkspace: IAddWorkspaceRepo
   ) { }
 
-  async add (data: IAddWorkspaceTask.Data): Promise<IAddWorkspaceTask.Result> {
+  async add (
+    data: IAddWorkspaceTask.Data
+  ): Promise<IAddWorkspaceTask.Result> {
     const now = new Date();
     const workspace: IAddWorkspaceRepo.Data = {
       _id: await this.createUuid.create(),

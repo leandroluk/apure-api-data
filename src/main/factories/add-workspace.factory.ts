@@ -12,7 +12,7 @@ export const addWorkspaceFactory = (): IAddWorkspaceCase => {
     const decrypterAdapter = new DecrypterAdapter();
     const checkJwtAdapter = new CheckJwtAdapter();
     const getAccountByEmailRepo = new MongoGetAccountByEmailRepo();
-    const authorizeTask = new AuthorizeTask(
+    const authorizeRequestTask = new AuthorizeTask(
       decrypterAdapter,
       checkJwtAdapter,
       getAccountByEmailRepo
@@ -24,7 +24,7 @@ export const addWorkspaceFactory = (): IAddWorkspaceCase => {
       addWorkspace
     );
     instance = new AddWorkspaceCase(
-      authorizeTask,
+      authorizeRequestTask,
       addWorkspaceTask
     );
   }

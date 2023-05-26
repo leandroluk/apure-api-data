@@ -1,2 +1,0 @@
-{"app":{"name":"apure-api-auth","version":"1.0.0"},"level":"error","reason":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{},"setName":null,"stale":false,"type":"Unknown"},"timestamp":"2023-05-26T16:31:35.747Z"}
-{"app":{"name":"apure-api-auth","version":"1.0.0"},"level":"info","message":"start on port 3000","timestamp":"2023-05-26T16:32:44.412Z"}

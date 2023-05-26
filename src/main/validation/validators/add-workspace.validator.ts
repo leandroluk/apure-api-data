@@ -8,7 +8,7 @@ export const addWorkspaceValidator = validationHelper.makeValidator(
       authorization: Joi.string().required().pattern(/^Bearer\s.+$/)
     }),
     body: Joi.object<IAddWorkspaceCase.Data["body"]>({
-      name: Joi.string().required().min(1).max(100),
+      name: Joi.string().required().max(100),
       ownerCnpj: Joi.string().required().length(14)
     })
   })

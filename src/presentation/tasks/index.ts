@@ -1,2 +1,2 @@
 export * from "./add-workspace.task";
-export * from "./authorize.task";
+export * from "./authorize-request.task";
