@@ -1,0 +1,34 @@
+{
+  "create MakeSut": {
+    "scope": "javascript,typescript",
+    "prefix": "-makeSut",
+    "body": [
+      "const makeSut = (): {",
+      "  sut: $1;",
+      "} => {",
+      "  const sut = new $1();",
+      "  return {",
+      "    sut,",
+      "  };",
+      "};"
+    ]
+  },
+  "create \"describe\"": {
+    "scope": "javascript,typescript",
+    "prefix": "-describe",
+    "body": [
+      "describe(\"${RELATIVE_FILEPATH/tests?\\/(.+).(spec|test).[jt]sx?/$1/}\", () => {",
+      "  it(\"should $1\", async () => {",
+      "  });",
+      "});"
+    ]
+  },
+  "create \"it\"": {
+    "scope": "javascript,typescript",
+    "prefix": "-it",
+    "body": [
+      "it(\"$1\", async () => {",
+      "});",
+    ]
+  }
+}

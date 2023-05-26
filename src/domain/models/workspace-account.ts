@@ -2,7 +2,7 @@ import { IEntity, IIndexable } from "../generics";
 import { IWorkspace } from "./workspace";
 
 export type IWorkspaceAccount = IEntity & {
-  workspace_uid: IWorkspace["_uid"];
-  account_uid: IIndexable["_uid"];
+  workspace_id: IWorkspace["_id"];
+  account_id: IIndexable["_id"];
   roles: string[];
 };

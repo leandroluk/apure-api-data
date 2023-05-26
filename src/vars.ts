@@ -16,5 +16,8 @@ export const vars = {
   db: {
     mongo: new URL(_.DB_MONGO ?? "mongodb://mongo:mongo@localhost:40000/db?authSource=admin").href,
     limit: Number(_.DB_LIMIT ?? 50)
+  },
+  jwt: {
+    secret: _.JWT_SECRET ?? "secret"
   }
 };

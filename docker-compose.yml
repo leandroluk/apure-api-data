@@ -1,0 +1,21 @@
+version: '3'
+
+networks:
+  apure-api-auth:
+    name: apure-api-auth
+
+services:
+  mongo:
+    image: mongo
+    container_name: apure-api-auth_mongo
+    hostname: mongo
+    ports: [ 40000:27017 ]
+    networks: [ apure-api-auth ]
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: mongo
+      MONGO_INITDB_DATABASE: db
+    healthcheck:
+      test: echo 'db.runCommand('ping').ok' | mongo mongo:27017/db --quiet 1
+      timeout: 20s
+      retries: 10

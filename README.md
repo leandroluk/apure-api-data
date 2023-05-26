@@ -12,29 +12,30 @@ classDiagram
   Workspace <|-- WorkspacePlayer
   Workspace <|-- WorkspaceProduct
   Workspace <|-- WorkspaceAccount
+  WorkspaceAccount <|-- Account
   class Workspace {
-    _uid: string
+    _id: string
     _timestamp: Date
     _created: Date
     _removed?: Date
     name: string
-    owner_uid: string
+    ownerCnpj: IWorkspacePlayer[cnpj]
   }
   class WorkspaceGroup {
-    _uid: string
+    _id: string
     _timestamp: Date
     _created: Date
     _removed?: Date
-    workspace_uid: string
+    workspace_id: string
     name: string
     subgroups: string[]
   }
   class WorkspacePlayer {
-    _uid: string
+    _id: string
     _timestamp: Date
     _created: Date
     _removed?: Date
-    workspace_uid: string
+    workspace_id: string
     name: string
     cnpj: string
     state: string
@@ -42,11 +43,11 @@ classDiagram
     longitude?: number
   }
   class WorkspaceProduct {
-    _uid: string
+    _id: string
     _timestamp: Date
     _created: Date
     _removed?: Date
-    workspace_uid: string
+    workspace_id: string
     name: string
     cnpj: string
     state: string
@@ -54,12 +55,20 @@ classDiagram
     longitude?: number
   }
   class WorkspaceAccount {
-    _uid: string
+    _id: string
     _timestamp: Date
     _created: Date
     _removed?: Date
-    workspace_uid: string
-    account_uid: string
+    workspace_id: string
+    account_id: string
     roles: string[]
+  }
+  class Account {
+    _id: string
+    _timestamp: Date
+    _created: Date
+    _removed?: Date    
+    name: string
+    email: string
   }
 ```
