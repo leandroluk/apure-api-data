@@ -1,5 +1,5 @@
 import { IAddWorkspaceCase } from "$/domain/cases";
-import Joi from "joi";
+import { Joi } from "../lib";
 import { validationHelper } from "../validation.helper";
 
 export const addWorkspaceValidator = validationHelper.makeValidator(
@@ -9,7 +9,7 @@ export const addWorkspaceValidator = validationHelper.makeValidator(
     }),
     body: Joi.object<IAddWorkspaceCase.Data["body"]>({
       name: Joi.string().required().max(100),
-      ownerCnpj: Joi.string().required().length(14)
+      ownerCnpj: Joi.string().required().cnpj()
     })
   })
 );

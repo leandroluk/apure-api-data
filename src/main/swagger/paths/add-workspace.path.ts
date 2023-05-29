@@ -7,10 +7,11 @@ import { IObjectSchema } from "../types";
 
 export const addWorkspacePath: OpenAPIV3.PathsObject = {
   "/api/workspace": {
-    put: {
+    post: {
       tags: [workspaceTag.name],
       operationId: "addWorkspace",
       summary: "Add workspace",
+      security: [{ bearerAuth: [] }],
       requestBody: {
         content: {
           "application/json": {

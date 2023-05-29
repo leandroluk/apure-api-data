@@ -1,7 +1,11 @@
 import { Config } from "@jest/types";
 
 const config: Config.InitialOptions = {
-  collectCoverageFrom: ["<rootDir>/src/**/*.ts", "!<rootDir>/src/**/index.ts"],
+  collectCoverageFrom: [
+    "<rootDir>/src/**/*.ts",
+    "!<rootDir>/src/**/index.ts",
+    "!<rootDir>/src/vars.ts"
+  ],
   coverageDirectory: ".tmp/coverage",
   coverageThreshold: {
     global: {

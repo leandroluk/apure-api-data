@@ -8,7 +8,9 @@ export class AddWorkspaceCase implements IAddWorkspaceCase {
     private readonly addWorkspace: IAddWorkspaceTask
   ) { }
 
-  async add (data: IAddWorkspaceCase.Data): Promise<IAddWorkspaceCase.Result> {
+  async add (
+    data: IAddWorkspaceCase.Data
+  ): Promise<IAddWorkspaceCase.Result> {
     const authorized = await this.authorizeRequest.authorize(data.headers.authorization);
     if (!authorized) {
       throw new UnauthorizedError();

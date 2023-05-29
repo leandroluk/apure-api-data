@@ -10,7 +10,7 @@ const makeSut = (): {
   };
 };
 
-describe("tests/infra/adapters/create-uuid.adapter.ts", () => {
+describe("tests/infra/adapters/create-uuid.adapter", () => {
   it("should return created uuid", async () => {
     const { sut } = makeSut();
     jest.spyOn(crypto, "randomUUID")

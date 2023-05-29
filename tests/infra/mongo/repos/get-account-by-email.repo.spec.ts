@@ -15,7 +15,7 @@ const makeSut = (): {
   };
 };
 
-describe("tests/infra/mongo/repos/get-account-by-email.repo.ts", () => {
+describe("tests/infra/mongo/repos/get-account-by-email.repo", () => {
   it("should throw if mongoHelper.collection throws", async () => {
     const { sut, email } = makeSut();
     jest.spyOn(mongoHelper, "collection")
