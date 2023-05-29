@@ -11,14 +11,14 @@ export class EditWorkspaceTask implements IEditWorkspaceTask {
     id: IEditWorkspaceTask.Id,
     changes: IEditWorkspaceTask.Changes
   ): Promise<IEditWorkspaceTask.Result> {
-    const oWorkspace = await this.getWorkspace.get(id);
-    if (oWorkspace) {
+    const workspace = await this.getWorkspace.get(id);
+    if (workspace && !workspace._removed) {
       const fullChanges: IEditWorkspaceRepo.Changes = {
         ...changes,
         _timestamp: new Date()
       };
       await this.editWorkspace.edit(id, fullChanges);
-      return { ...oWorkspace, ...fullChanges };
+      return { ...workspace, ...fullChanges };
     }
   }
 }
