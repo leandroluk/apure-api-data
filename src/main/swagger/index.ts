@@ -9,6 +9,7 @@ const swagger: OpenAPIV3.Document = {
   openapi: "3.0.3",
   info: {
     title: vars.app.name,
+    description: vars.app.description,
     version: vars.app.version
   },
   tags: Object.values(tags),

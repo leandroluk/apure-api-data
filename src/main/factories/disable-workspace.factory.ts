@@ -1,12 +1,12 @@
-import { AuthorizeRequestTask, EditWorkspaceTask } from "$/data/tasks";
-import { IEditWorkspaceCase } from "$/domain/cases";
+import { AuthorizeRequestTask, DisableWorkspaceTask } from "$/data/tasks";
+import { IDisableWorkspaceCase } from "$/domain/cases";
 import { CheckJwtAdapter, DecrypterAdapter } from "$/infra/adapters";
 import { MongoEditWorkspaceRepo, MongoGetAccountByEmailRepo, MongoGetWorkspaceRepo } from "$/infra/mongo";
-import { EditWorkspaceCase } from "$/presentation/cases";
+import { DisableWorkspaceCase } from "$/presentation/cases";
 
-let instance: IEditWorkspaceCase;
+let instance: IDisableWorkspaceCase;
 
-export const editWorkspaceFactory = (): IEditWorkspaceCase => {
+export const disableWorkspaceFactory = (): IDisableWorkspaceCase => {
   if (!instance) {
     const decrypterAdapter = new DecrypterAdapter();
     const checkJwtAdapter = new CheckJwtAdapter();
@@ -18,13 +18,13 @@ export const editWorkspaceFactory = (): IEditWorkspaceCase => {
     );
     const getWorkspaceRepo = new MongoGetWorkspaceRepo();
     const editWorkspaceRepo = new MongoEditWorkspaceRepo();
-    const editWorkspaceTask = new EditWorkspaceTask(
+    const disableWorkspaceTask = new DisableWorkspaceTask(
       getWorkspaceRepo,
       editWorkspaceRepo
     );
-    instance = new EditWorkspaceCase(
+    instance = new DisableWorkspaceCase(
       authorizeRequestTask,
-      editWorkspaceTask
+      disableWorkspaceTask
     );
   }
   return instance;

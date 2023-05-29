@@ -74,7 +74,7 @@ describe("main/routes/api/workspace.routes", () => {
   });
 
   describe("PUT /api/workspace/:_id", () => {
-    const url = "/api/workspace/ids";
+    const url = "/api/workspace/_id";
     const validBody = {
       name: "Example",
       ownerCnpj: "75748633000181"
@@ -153,6 +153,59 @@ describe("main/routes/api/workspace.routes", () => {
       expect(result.body._removed).toBeFalsy();
       expect(result.body.name).toBe(validBody.name);
       expect(result.body.ownerCnpj).toBe(validBody.ownerCnpj);
+    });
+  });
+
+  describe("DELETE /api/workspace/:_id", () => {
+    const url = "/api/workspace/_id";
+
+    it.each([
+      ['"authorization" is empty', { authorization: "" }],
+      ['"authorization" must start with Bearer', { authorization: "token" }]
+    ])("should return 400 if %p on header", async (_, invalidHeaders) => {
+      const result = await supertest(app)
+        .delete(url)
+        .set(invalidHeaders);
+
+      expect(result.status).toBe(400);
+    });
+
+    it("should return 401 if request is unauthorized", async () => {
+      const result = await supertest(app)
+        .delete(url)
+        .set({ authorization: "Bearer token" });
+
+      expect(result.status).toBe(401);
+    });
+
+    it("should return 404 if workspace not found", async () => {
+      jest.spyOn(mongoHelper, "collection")
+        // get account by email
+        .mockReturnValueOnce({ find: np({ project: np({ toArray: np([mockAccount]) }) }) } as any)
+        // get workspace
+        .mockReturnValueOnce({ find: np({ project: np({ toArray: np([]) }) }) } as any);
+
+      const result = await supertest(app)
+        .delete(url)
+        .set(mockAuthenticatedHeader);
+
+      expect(result.status).toBe(404);
+    });
+
+    it("should return 204 if disable workspace", async () => {
+      jest.spyOn(mongoHelper, "collection")
+        // get account by email
+        .mockReturnValueOnce({ find: np({ project: np({ toArray: np([mockAccount]) }) }) } as any)
+        // get workspace
+        .mockReturnValueOnce({ find: np({ project: np({ toArray: np([mockWorkspace]) }) }) } as any)
+        // edit workspace
+        .mockReturnValueOnce({ findOneAndUpdate: np() } as any);
+
+      const result = await supertest(app)
+        .delete(url)
+        .set(mockAuthenticatedHeader);
+
+      expect(result.status).toBe(204);
     });
   });
 });

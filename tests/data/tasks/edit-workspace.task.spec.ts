@@ -42,6 +42,12 @@ describe("data/tasks/edit-workspace.task", () => {
     await expect(sut.edit(id, changes)).resolves.toBeUndefined();
   });
 
+  it("should return undefined if getWorkspace.get returns removed workspace", async () => {
+    const { getWorkspace, sut, id, changes } = makeSut();
+    getWorkspace.$get._removed = new Date();
+    await expect(sut.edit(id, changes)).resolves.toBeUndefined();
+  });
+
   it("should throw if editWorkspace.edit throws", async () => {
     const { editWorkspace, sut, id, changes } = makeSut();
     jest.spyOn(editWorkspace, "edit").mockRejectedValue(new Error());

@@ -2,7 +2,7 @@ import { IAuthorizeRequestTask } from "$/presentation/tasks";
 import { ICheckJwtAdapter, IDecrypterAdapter } from "../adapters";
 import { IGetAccountByEmailRepo } from "../repos";
 
-export class AuthorizeTask implements IAuthorizeRequestTask {
+export class AuthorizeRequestTask implements IAuthorizeRequestTask {
   constructor (
     private readonly decrypter: IDecrypterAdapter,
     private readonly checkJwt: ICheckJwtAdapter,
@@ -17,7 +17,9 @@ export class AuthorizeTask implements IAuthorizeRequestTask {
       const checked = await this.checkJwt.check(jwt);
       if (checked?.type === "access") {
         const account = await this.getAccountByEmail.get(checked.email);
-        return account;
+        if (account && !account._removed) {
+          return account;
+        }
       }
     }
   }
