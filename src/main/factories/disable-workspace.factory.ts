@@ -1,5 +1,4 @@
-import { AuthorizeRequestTask } from "$/data/tasks";
-import { DisableWorkspaceTask } from "$/data/tasks/disable-workspace.task";
+import { AuthorizeRequestTask, DisableWorkspaceTask } from "$/data/tasks";
 import { IDisableWorkspaceCase } from "$/domain/cases";
 import { CheckJwtAdapter, DecrypterAdapter } from "$/infra/adapters";
 import { MongoEditWorkspaceRepo, MongoGetAccountByEmailRepo, MongoGetWorkspaceRepo } from "$/infra/mongo";
