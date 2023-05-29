@@ -1,5 +1,6 @@
 {
   "name": "apure-api-data",
+  "description": "Apure - Data API",
   "version": "1.0.0",
   "private": true,
   "devDependencies": {

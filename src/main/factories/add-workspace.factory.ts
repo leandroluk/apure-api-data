@@ -1,4 +1,4 @@
-import { AddWorkspaceTask, AuthorizeTask } from "$/data/tasks";
+import { AddWorkspaceTask, AuthorizeRequestTask } from "$/data/tasks";
 import { IAddWorkspaceCase } from "$/domain/cases";
 import { CheckJwtAdapter, CreateUuidAdapter, DecrypterAdapter } from "$/infra/adapters";
 import { MongoGetAccountByEmailRepo } from "$/infra/mongo";
@@ -12,7 +12,7 @@ export const addWorkspaceFactory = (): IAddWorkspaceCase => {
     const decrypterAdapter = new DecrypterAdapter();
     const checkJwtAdapter = new CheckJwtAdapter();
     const getAccountByEmailRepo = new MongoGetAccountByEmailRepo();
-    const authorizeRequestTask = new AuthorizeTask(
+    const authorizeRequestTask = new AuthorizeRequestTask(
       decrypterAdapter,
       checkJwtAdapter,
       getAccountByEmailRepo

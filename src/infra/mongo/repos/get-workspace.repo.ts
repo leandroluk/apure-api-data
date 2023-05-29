@@ -7,7 +7,7 @@ export class MongoGetWorkspaceRepo implements IGetWorkspaceRepo {
   async get (id: string): Promise<IGetWorkspaceRepo.Result> {
     const [doc] = await mongoHelper
       .collection<IWorkspace>(workspaceSchema.collection)
-      .find({ _id: id, _removed: null })
+      .find({ _id: id })
       .project<IGetWorkspaceRepo.Result>(workspaceSchema.projection)
       .toArray();
 

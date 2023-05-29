@@ -8,7 +8,7 @@ export class MongoGetAccountByEmailRepo implements IGetAccountByEmailRepo {
   ): Promise<IGetAccountByEmailRepo.Result> {
     const [doc] = await mongoHelper
       .collection(accountSchema.collection)
-      .find({ email, _removed: null })
+      .find({ email })
       .project<IGetAccountByEmailRepo.Result>(accountSchema.projection)
       .toArray();
 

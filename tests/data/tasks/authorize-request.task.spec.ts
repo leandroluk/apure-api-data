@@ -1,4 +1,4 @@
-import { AuthorizeTask } from "$/data/tasks";
+import { AuthorizeRequestTask } from "$/data/tasks";
 import { IAuthorizeRequestTask } from "$/presentation/tasks";
 import { MockCheckJwtAdapter, MockDecrypterAdapter } from "mocks/data/adapters";
 import { MockGetAccountByEmailRepo } from "mocks/data/repos";
@@ -7,13 +7,13 @@ const makeSut = (): {
   decrypter: MockDecrypterAdapter;
   checkJwt: MockCheckJwtAdapter;
   getAccountByEmail: MockGetAccountByEmailRepo;
-  sut: AuthorizeTask;
+  sut: AuthorizeRequestTask;
   token: IAuthorizeRequestTask.Token;
 } => {
   const decrypter = new MockDecrypterAdapter();
   const checkJwt = new MockCheckJwtAdapter();
   const getAccountByEmail = new MockGetAccountByEmailRepo();
-  const sut = new AuthorizeTask(
+  const sut = new AuthorizeRequestTask(
     decrypter,
     checkJwt,
     getAccountByEmail
@@ -28,7 +28,7 @@ const makeSut = (): {
   };
 };
 
-describe("data/tasks/authorize.task", () => {
+describe("data/tasks/authorize-request.task", () => {
   it("should should throw if decrypter.decrypt throws", async () => {
     const { decrypter, sut, token } = makeSut();
     jest.spyOn(decrypter, "decrypt").mockRejectedValue(new Error());
@@ -63,6 +63,18 @@ describe("data/tasks/authorize.task", () => {
     const { getAccountByEmail, sut, token } = makeSut();
     jest.spyOn(getAccountByEmail, "get").mockRejectedValue(new Error());
     await expect(sut.authorize(token)).rejects.toThrow();
+  });
+
+  it("should return undefined if getAccountByEmail.get returns falsy", async () => {
+    const { getAccountByEmail, sut, token } = makeSut();
+    getAccountByEmail.$get = undefined;
+    await expect(sut.authorize(token)).resolves.toBeUndefined();
+  });
+
+  it("should return undefined if getAccountByEmail.get returns removed", async () => {
+    const { getAccountByEmail, sut, token } = makeSut();
+    getAccountByEmail.$get._removed = new Date();
+    await expect(sut.authorize(token)).resolves.toBeUndefined();
   });
 
   it("should return account if success", async () => {

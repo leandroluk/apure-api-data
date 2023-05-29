@@ -1,5 +1,6 @@
 export class NotFoundError extends Error {
-  constructor (message?: string) {
+  static defaultMessage = "Not Found";
+  constructor (message = NotFoundError.defaultMessage) {
     super(message);
     this.name = "NotFoundError";
   }

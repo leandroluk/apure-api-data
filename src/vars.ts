@@ -8,6 +8,7 @@ export const vars = {
   port: Number(_.PORT ?? 3000),
   app: {
     name: packageJson.name,
+    description: packageJson.description,
     version: packageJson.version
   },
   defaults: {
