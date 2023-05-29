@@ -4,7 +4,7 @@ const { env: _, cwd } = process;
 
 export const vars = {
   path: cwd(),
-  // env: _.NODE_ENV ?? "development",
+  env: _.NODE_ENV ?? "development",
   port: Number(_.PORT ?? 3000),
   app: {
     name: packageJson.name,

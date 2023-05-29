@@ -15,7 +15,7 @@ const makeSut = (): {
   };
 };
 
-describe("tests/infra/mongo/repos/add-workspace.repo.ts", () => {
+describe("tests/infra/mongo/repos/add-workspace.repo", () => {
   it("should throw if mongoHelper.collection throws", async () => {
     const { sut, data } = makeSut();
     jest.spyOn(mongoHelper, "collection")

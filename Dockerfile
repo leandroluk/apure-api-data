@@ -12,7 +12,7 @@ RUN yarn esbuild src \
 
 FROM node as runner
 ENV \
-  # NODE_ENV="development" \
+  NODE_ENV="production" \
   PORT=3000 \
   DEFAULTS_TTL=31536000000 \
   DB_MONGO="mongodb://mongo:mongo@localhost:40000/db?authSource=admin" \
