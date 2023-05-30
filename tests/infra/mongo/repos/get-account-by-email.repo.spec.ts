@@ -1,6 +1,5 @@
 import { IGetAccountByEmailRepo } from "$/data/repos";
-import { mongoHelper } from "$/infra/mongo";
-import { MongoGetAccountByEmailRepo } from "$/infra/mongo/repos/get-account-by-email.repo";
+import { MongoGetAccountByEmailRepo, mongoHelper } from "$/infra/mongo";
 import { mockAccount } from "mocks/domain/models";
 
 const makeSut = (): {

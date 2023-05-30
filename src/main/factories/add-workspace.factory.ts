@@ -1,9 +1,7 @@
 import { AddWorkspaceAccountTask, AddWorkspaceTask, AuthorizeRequestTask } from "$/data/tasks";
 import { IAddWorkspaceCase } from "$/domain/cases";
 import { CheckJwtAdapter, CreateUuidAdapter, DecrypterAdapter } from "$/infra/adapters";
-import { MongoGetAccountByEmailRepo } from "$/infra/mongo";
-import { MongoAddWorkspaceAccountRepo } from "$/infra/mongo/repos/add-workspace-account.repo";
-import { MongoAddWorkspaceRepo } from "$/infra/mongo/repos/add-workspace.repo";
+import { MongoAddWorkspaceAccountRepo, MongoAddWorkspaceRepo, MongoGetAccountByEmailRepo } from "$/infra/mongo";
 import { AddWorkspaceCase } from "$/presentation/cases";
 
 let instance: IAddWorkspaceCase;
