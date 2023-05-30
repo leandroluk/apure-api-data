@@ -3,7 +3,7 @@ import { swaggerHelper } from "../swagger.helper";
 import { workspaceTag } from "../tags";
 
 export const disableWorkspacePath: OpenAPIV3.PathsObject = {
-  "/api/workspace/:_id": {
+  "/api/workspace/{_id}": {
     delete: {
       externalDocs: {
         url: "https://github.com/leandroluk/apure-api-data/issues/7"
