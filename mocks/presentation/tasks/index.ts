@@ -1,3 +1,4 @@
+export * from "./add-workspace-account.task";
 export * from "./add-workspace.task";
 export * from "./authorize-request.task";
 export * from "./disable-workspace.task";

@@ -1,20 +1,20 @@
-import { IAddWorkspaceRepo } from "$/data/repos";
-import { MongoAddWorkspaceRepo, mongoHelper } from "$/infra/mongo";
-import { mockWorkspace } from "mocks/domain/models";
+import { IAddWorkspaceAccountRepo } from "$/data/repos";
+import { MongoAddWorkspaceAccountRepo, mongoHelper } from "$/infra/mongo";
+import { mockWorkspaceAccount } from "mocks/domain/models";
 
 const makeSut = (): {
-  sut: MongoAddWorkspaceRepo;
-  data: IAddWorkspaceRepo.Data;
+  sut: MongoAddWorkspaceAccountRepo;
+  data: IAddWorkspaceAccountRepo.Data;
 } => {
-  const sut = new MongoAddWorkspaceRepo();
-  const data: IAddWorkspaceRepo.Data = { ...mockWorkspace };
+  const sut = new MongoAddWorkspaceAccountRepo();
+  const data: IAddWorkspaceAccountRepo.Data = { ...mockWorkspaceAccount };
   return {
     sut,
     data
   };
 };
 
-describe("tests/infra/mongo/repos/add-workspace.repo", () => {
+describe("tests/infra/mongo/repos/add-workspace-account.repo", () => {
   it("should throw if mongoHelper.collection throws", async () => {
     const { sut, data } = makeSut();
     jest.spyOn(mongoHelper, "collection")

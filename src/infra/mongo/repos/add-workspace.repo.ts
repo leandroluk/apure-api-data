@@ -1,14 +1,14 @@
 import { IAddWorkspaceRepo } from "$/data/repos";
-import { ObjectId } from "mongodb";
+import { IWorkspace } from "$/domain/models";
 import { mongoHelper } from "../mongo.helper";
 import { workspaceSchema } from "../schemas";
 
 export class MongoAddWorkspaceRepo implements IAddWorkspaceRepo {
   async add (
-    { _id, ...doc }: IAddWorkspaceRepo.Data
+    data: IAddWorkspaceRepo.Data
   ): Promise<void> {
     await mongoHelper
-      .collection(workspaceSchema.collection)
-      .insertOne({ _id: _id as unknown as ObjectId, ...doc });
+      .collection<IWorkspace>(workspaceSchema.collection)
+      .insertOne(data);
   }
 }

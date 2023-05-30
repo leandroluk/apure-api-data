@@ -1,19 +1,22 @@
 import { IAddWorkspaceCase } from "$/domain/cases";
 import { AddWorkspaceCase } from "$/presentation/cases";
 import { UnauthorizedError } from "$/presentation/errors";
-import { MockAddWorkspaceTask, MockAuthorizeRequestTask } from "mocks/presentation/tasks";
+import { MockAddWorkspaceAccountTask, MockAddWorkspaceTask, MockAuthorizeRequestTask } from "mocks/presentation/tasks";
 
 const makeSut = (): {
   authorizeRequest: MockAuthorizeRequestTask;
   addWorkspace: MockAddWorkspaceTask;
+  addWorkspaceAccount: MockAddWorkspaceAccountTask;
   sut: AddWorkspaceCase;
   data: IAddWorkspaceCase.Data;
 } => {
   const authorizeRequest = new MockAuthorizeRequestTask();
   const addWorkspace = new MockAddWorkspaceTask();
+  const addWorkspaceAccount = new MockAddWorkspaceAccountTask();
   const sut = new AddWorkspaceCase(
     authorizeRequest,
-    addWorkspace
+    addWorkspace,
+    addWorkspaceAccount
   );
   const data: IAddWorkspaceCase.Data = {
     headers: {
@@ -27,6 +30,7 @@ const makeSut = (): {
   return {
     authorizeRequest,
     addWorkspace,
+    addWorkspaceAccount,
     sut,
     data
   };
@@ -48,6 +52,12 @@ describe("presentation/tasks/add-workspace.case", () => {
   it("should throw if addWorkspace.add throws", async () => {
     const { addWorkspace, sut, data } = makeSut();
     jest.spyOn(addWorkspace, "add").mockRejectedValue(new Error());
+    await expect(sut.add(data)).rejects.toThrow();
+  });
+
+  it("should throw if addWorkspaceAccount.add throws", async () => {
+    const { addWorkspaceAccount, sut, data } = makeSut();
+    jest.spyOn(addWorkspaceAccount, "add").mockRejectedValue(new Error());
     await expect(sut.add(data)).rejects.toThrow();
   });
 
