@@ -4,6 +4,13 @@ import { Router } from "express";
 
 const workspaceRoutes = Router();
 
+// enableWorkspace
+workspaceRoutes.delete("/:_id/restore", async (req, res) => {
+  const data = await validators.disableWorkspaceValidator(req);
+  const result = await factories.enableWorkspaceFactory().enable(data);
+  res.json(result);
+});
+
 // editWorkspace
 workspaceRoutes.put("/:_id", async (req, res) => {
   const data = await validators.editWorkspaceValidator(req);
