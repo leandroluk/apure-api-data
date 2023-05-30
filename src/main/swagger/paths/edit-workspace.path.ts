@@ -6,7 +6,7 @@ import { workspaceTag } from "../tags";
 import { IObjectSchema } from "../types";
 
 export const editWorkspacePath: OpenAPIV3.PathsObject = {
-  "/api/workspace/:_id": {
+  "/api/workspace/{_id}": {
     put: {
       externalDocs: {
         url: "https://github.com/leandroluk/apure-api-data/issues/11"
