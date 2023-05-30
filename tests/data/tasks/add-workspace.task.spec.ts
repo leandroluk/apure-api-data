@@ -16,8 +16,10 @@ const makeSut = (): {
     addWorkspace
   );
   const data: IAddWorkspaceTask.Data = {
-    name: "name",
-    ownerCnpj: "ownerCnpj"
+    value: {
+      name: "name",
+      ownerCnpj: "ownerCnpj"
+    }
   };
   return {
     createUuid,
@@ -47,7 +49,7 @@ describe("data/tasks/add-workspace.task", () => {
     expect(result._timestamp).toBeDefined();
     expect(result._created).toBeDefined();
     expect(result._removed).toBeFalsy();
-    expect(result.name).toBe(data.name);
-    expect(result.ownerCnpj).toBe(data.ownerCnpj);
+    expect(result.name).toBe(data.value.name);
+    expect(result.ownerCnpj).toBe(data.value.ownerCnpj);
   });
 });

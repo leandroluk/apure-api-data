@@ -4,5 +4,8 @@ export type IAddWorkspaceAccountRepo = {
   add (data: IAddWorkspaceAccountRepo.Data): Promise<void>;
 };
 export namespace IAddWorkspaceAccountRepo {
-  export type Data = IWorkspaceAccount & {};
+  export type Data = {
+    value: IWorkspaceAccount;
+    sessionId?: string;
+  };
 }

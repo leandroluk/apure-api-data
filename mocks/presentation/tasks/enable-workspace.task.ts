@@ -7,7 +7,7 @@ export class MockEnableWorkspaceTask implements IEnableWorkspaceTask {
   ) { }
 
   async enable (
-    _id: IDisableWorkspaceTask.Id
+    _data: IDisableWorkspaceTask.Data
   ): Promise<IEnableWorkspaceTask.Result> {
     return this.$enable;
   }

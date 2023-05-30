@@ -18,7 +18,7 @@ const makeSut = (): {
     disableWorkspace
   );
   const data: IDisableWorkspaceCase.Data = {
-    headers: mockAuthenticatedHeader,
+    headers: { ...mockAuthenticatedHeader, sid: "sid" },
     params: {
       _id: mockWorkspace._id
     }

@@ -15,7 +15,7 @@ export const vars = {
     ttl: Number(_.DEFAULTS_TTL ?? 1000 * 60 * 60 * 24 * 365) // default 1 year
   },
   db: {
-    mongo: new URL(_.DB_MONGO ?? "mongodb://mongo:mongo@localhost:40000/db?authSource=admin").href,
+    mongo: new URL(_.DB_MONGO ?? "mongodb://mongo:mongo@localhost:27017/db?authSource=admin&replicaSet=rs").href,
     limit: Number(_.DB_LIMIT ?? 50)
   },
   jwt: {

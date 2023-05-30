@@ -15,7 +15,10 @@ export class DisableWorkspaceCase implements IDisableWorkspaceCase {
     if (!authorized) {
       throw new UnauthorizedError();
     }
-    const isDisabled = await this.disableWorkspace.disable(data.params._id);
+    const isDisabled = await this.disableWorkspace.disable({
+      id: data.params._id,
+      sessionId: data.headers.sid
+    });
     if (!isDisabled) {
       throw new NotFoundError(`Workspace "${data.params._id}" not found`);
     }

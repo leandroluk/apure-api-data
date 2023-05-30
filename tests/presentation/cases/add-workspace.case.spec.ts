@@ -1,6 +1,7 @@
 import { IAddWorkspaceCase } from "$/domain/cases";
 import { AddWorkspaceCase } from "$/presentation/cases";
 import { UnauthorizedError } from "$/presentation/errors";
+import { mockAuthenticatedHeader } from "mocks/domain/generics";
 import { MockAddWorkspaceAccountTask, MockAddWorkspaceTask, MockAuthorizeRequestTask } from "mocks/presentation/tasks";
 
 const makeSut = (): {
@@ -19,9 +20,7 @@ const makeSut = (): {
     addWorkspaceAccount
   );
   const data: IAddWorkspaceCase.Data = {
-    headers: {
-      authorization: "authorization"
-    },
+    headers: { ...mockAuthenticatedHeader, sid: "sid" },
     body: {
       name: "name",
       ownerCnpj: "ownerCnpj"

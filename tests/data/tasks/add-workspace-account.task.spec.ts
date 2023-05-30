@@ -16,9 +16,11 @@ const makeSut = (): {
     addWorkspaceAccount
   );
   const data: IAddWorkspaceAccountTask.Data = {
-    account_id: "account_id",
-    roles: ["admin"],
-    workspace_id: "workspace_id"
+    value: {
+      account_id: "account_id",
+      roles: ["admin"],
+      workspace_id: "workspace_id"
+    }
   };
   return {
     createUuid,
@@ -48,8 +50,8 @@ describe("data/tasks/add-workspace-account.task", () => {
     expect(result._timestamp).toBeDefined();
     expect(result._created).toBeDefined();
     expect(result._removed).toBeFalsy();
-    expect(result.account_id).toBe(data.account_id);
-    expect(result.workspace_id).toBe(data.workspace_id);
-    expect(result.roles).toBe(data.roles);
+    expect(result.account_id).toBe(data.value.account_id);
+    expect(result.workspace_id).toBe(data.value.workspace_id);
+    expect(result.roles).toBe(data.value.roles);
   });
 });

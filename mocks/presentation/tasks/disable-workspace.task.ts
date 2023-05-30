@@ -6,7 +6,7 @@ export class MockDisableWorkspaceTask implements IDisableWorkspaceTask {
   ) { }
 
   async disable (
-    _id: IDisableWorkspaceTask.Id
+    _data: IDisableWorkspaceTask.Data
   ): Promise<boolean> {
     return this.$disable;
   }

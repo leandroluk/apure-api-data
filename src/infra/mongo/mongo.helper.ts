@@ -1,6 +1,6 @@
 import { IIndexable, ISearch } from "$/domain/generics";
 import { vars } from "$/vars";
-import { Collection, MongoClient } from "mongodb";
+import { ClientSession, Collection, MongoClient } from "mongodb";
 import { ISchema } from "./types";
 
 type Any = string | string[] | number | number[] | Date | Date[];
@@ -24,7 +24,8 @@ const operatorsMap = {
 
 export const mongoHelper = {
   client: null as MongoClient,
-
+  /* eslint-disable-next-line @typescript-eslint/consistent-type-assertions */
+  sessions: {} as Record<string, ClientSession>,
   async connect (): Promise<void> {
     mongoHelper.client = await MongoClient.connect(vars.db.mongo);
   },
@@ -89,5 +90,23 @@ export const mongoHelper = {
       offset,
       limit
     };
+  },
+
+  async startSession (): Promise<string> {
+    if (mongoHelper.client) {
+      const session = mongoHelper.client.startSession();
+      session.startTransaction();
+      const id = `${session.id.id.toUUID()}`;
+      mongoHelper.sessions[id] = session;
+      return id;
+    }
+  },
+
+  async endSession (id: string, error?: Error): Promise<void> {
+    if (mongoHelper.sessions[id]) {
+      const method = error ? "abort" : "commit";
+      await mongoHelper.sessions[id][`${method}Transaction`]();
+      await mongoHelper.sessions[id].endSession();
+    }
   }
 };

@@ -2,6 +2,7 @@ import { IIndexable } from "$/domain/generics";
 import { ISchema, mongoHelper } from "$/infra/mongo";
 import { vars } from "$/vars";
 import { MongoClient } from "mongodb";
+import { makeMongoClientFactory } from "tests/helpers";
 
 describe("infra/mongo/mongo.helper", () => {
   describe("connect", () => {
@@ -182,6 +183,70 @@ describe("infra/mongo/mongo.helper", () => {
         limit: vars.db.limit,
         offset: 0
       });
+    });
+  });
+
+  describe("startSession", () => {
+    beforeEach(() => {
+      mongoHelper.client = undefined;
+      mongoHelper.sessions = {};
+    });
+
+    it("should return undefined if no client", async () => {
+      await expect(mongoHelper.startSession()).resolves.toBeUndefined();
+    });
+
+    it("should start session and transaction", async () => {
+      const id = "uuid";
+      mongoHelper.client = makeMongoClientFactory();
+      await expect(mongoHelper.startSession()).resolves.toBe(id);
+      expect((mongoHelper.client as any)._startSession.startTransaction).toBeCalled();
+      expect(mongoHelper.sessions[id]).toBeDefined();
+    });
+  });
+
+  describe("endSession", () => {
+    beforeEach(() => {
+      mongoHelper.client = makeMongoClientFactory();
+      mongoHelper.sessions = {};
+    });
+
+    it("should not call endSession if session does exists", async () => {
+      await mongoHelper.endSession("wrong");
+      const {
+        abortTransaction,
+        commitTransaction,
+        endSession
+      } = (mongoHelper.client as any)._startSession;
+      expect(abortTransaction).not.toBeCalled();
+      expect(commitTransaction).not.toBeCalled();
+      expect(endSession).not.toBeCalled();
+    });
+
+    it("should call commitTransaction if end without error", async () => {
+      await mongoHelper.startSession();
+      await mongoHelper.endSession("uuid");
+      const {
+        abortTransaction,
+        commitTransaction,
+        endSession
+      } = (mongoHelper.client as any)._startSession;
+      expect(abortTransaction).not.toBeCalled();
+      expect(commitTransaction).toBeCalled();
+      expect(endSession).toBeCalled();
+    });
+
+    it("should call abortTransaction if end with error", async () => {
+      await mongoHelper.startSession();
+      await mongoHelper.endSession("uuid", new Error());
+      const {
+        abortTransaction,
+        commitTransaction,
+        endSession
+      } = (mongoHelper.client as any)._startSession;
+      expect(abortTransaction).toBeCalled();
+      expect(commitTransaction).not.toBeCalled();
+      expect(endSession).toBeCalled();
     });
   });
 });

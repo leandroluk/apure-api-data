@@ -1,4 +1,4 @@
-import { IAuthenticatedHeader } from "../generics";
+import { IAuthenticatedHeader, IWithSessionHeader } from "../generics";
 import { IWorkspace } from "../models";
 
 /**
@@ -9,7 +9,7 @@ export type IDisableWorkspaceCase = {
 };
 export namespace IDisableWorkspaceCase {
   export type Data = {
-    headers: IAuthenticatedHeader;
+    headers: IAuthenticatedHeader & IWithSessionHeader;
     params: Pick<IWorkspace, "_id">;
   };
 }

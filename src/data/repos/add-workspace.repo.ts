@@ -6,5 +6,8 @@ export type IAddWorkspaceRepo = {
   ): Promise<void>;
 };
 export namespace IAddWorkspaceRepo {
-  export type Data = IWorkspace & {};
+  export type Data = {
+    value: IWorkspace;
+    sessionId?: string;
+  };
 }

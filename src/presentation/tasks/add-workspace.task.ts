@@ -7,6 +7,9 @@ export type IAddWorkspaceTask = {
   ): Promise<IAddWorkspaceTask.Result>;
 };
 export namespace IAddWorkspaceTask {
-  export type Data = Omit<IWorkspace, keyof IEntity>;
+  export type Data = {
+    value: Omit<IWorkspace, keyof IEntity>;
+    sessionId?: string;
+  };
   export type Result = IWorkspace & {};
 }

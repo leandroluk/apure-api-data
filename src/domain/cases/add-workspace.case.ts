@@ -1,4 +1,4 @@
-import { IAuthenticatedHeader, IEntity } from "../generics";
+import { IAuthenticatedHeader, IEntity, IWithSessionHeader } from "../generics";
 import { IWorkspace } from "../models";
 
 /**
@@ -11,7 +11,7 @@ export type IAddWorkspaceCase = {
 };
 export namespace IAddWorkspaceCase {
   export type Data = {
-    headers: IAuthenticatedHeader;
+    headers: IAuthenticatedHeader & IWithSessionHeader;
     body: Omit<IWorkspace, keyof IEntity>;
   };
   export type Result = IWorkspace & {};

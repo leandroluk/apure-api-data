@@ -2,10 +2,13 @@ import { IWorkspace } from "$/domain/models";
 
 export type IDisableWorkspaceTask = {
   disable (
-    id: IDisableWorkspaceTask.Id
+    data: IDisableWorkspaceTask.Data
   ): Promise<IDisableWorkspaceTask.Result>;
 };
 export namespace IDisableWorkspaceTask {
-  export type Id = IWorkspace["_id"];
+  export type Data = {
+    id: IWorkspace["_id"];
+    sessionId?: string;
+  };
   export type Result = boolean;
 }

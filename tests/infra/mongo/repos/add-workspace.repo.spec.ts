@@ -7,7 +7,9 @@ const makeSut = (): {
   data: IAddWorkspaceRepo.Data;
 } => {
   const sut = new MongoAddWorkspaceRepo();
-  const data: IAddWorkspaceRepo.Data = { ...mockWorkspace };
+  const data: IAddWorkspaceRepo.Data = {
+    value: { ...mockWorkspace }
+  };
   return {
     sut,
     data
