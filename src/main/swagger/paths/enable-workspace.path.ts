@@ -1,37 +1,23 @@
-import { IEditWorkspaceCase } from "$/domain/cases";
+import { IEnableWorkspaceCase } from "$/domain/cases";
 import { OpenAPIV3 } from "openapi-types";
 import { workspaceDTO } from "../dtos";
 import { swaggerHelper } from "../swagger.helper";
 import { workspaceTag } from "../tags";
 import { IObjectSchema } from "../types";
 
-export const editWorkspacePath: OpenAPIV3.PathsObject = {
-  "/api/workspace/{_id}": {
+export const enableWorkspacePath: OpenAPIV3.PathsObject = {
+  "/api/workspace/{_id}/restore": {
     put: {
       externalDocs: {
-        url: "https://github.com/leandroluk/apure-api-data/issues/11"
+        url: "https://github.com/leandroluk/apure-api-data/issues/26"
       },
       tags: [workspaceTag.name],
-      operationId: "editWorkspace",
-      summary: "Edit workspace",
+      operationId: "enableWorkspace",
+      summary: "Enable workspace",
       security: [{ bearerAuth: [] }],
       parameters: [
         { in: "path", name: "_id", schema: { type: "string" }, required: true }
       ],
-      requestBody: {
-        content: {
-          "application/json": {
-            schema: {
-              type: "object",
-              required: [] as string[] & never[],
-              properties: {
-                name: workspaceDTO.properties.name,
-                ownerCnpj: workspaceDTO.properties.ownerCnpj
-              }
-            } satisfies IObjectSchema<IEditWorkspaceCase.Data["body"]>
-          }
-        }
-      },
       responses: {
         200: {
           description: "ok",
@@ -48,7 +34,7 @@ export const editWorkspacePath: OpenAPIV3.PathsObject = {
                   name: workspaceDTO.properties.name,
                   ownerCnpj: workspaceDTO.properties.ownerCnpj
                 }
-              } satisfies IObjectSchema<IEditWorkspaceCase.Result>
+              } satisfies IObjectSchema<IEnableWorkspaceCase.Result>
             }
           }
         },
