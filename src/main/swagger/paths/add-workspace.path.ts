@@ -1,6 +1,6 @@
 import { IAddWorkspaceCase } from "$/domain/cases";
 import { OpenAPIV3 } from "openapi-types";
-import { workspaceDTO } from "../dtos";
+import { workspaceAccountDTO, workspaceDTO } from "../dtos";
 import { swaggerHelper } from "../swagger.helper";
 import { workspaceTag } from "../tags";
 import { IObjectSchema } from "../types";
@@ -43,7 +43,8 @@ export const addWorkspacePath: OpenAPIV3.PathsObject = {
                   _created: workspaceDTO.properties._created,
                   _removed: workspaceDTO.properties._removed,
                   name: workspaceDTO.properties.name,
-                  ownerCnpj: workspaceDTO.properties.ownerCnpj
+                  ownerCnpj: workspaceDTO.properties.ownerCnpj,
+                  _accounts: { type: "array", items: workspaceAccountDTO }
                 }
               } satisfies IObjectSchema<IAddWorkspaceCase.Result>
             }

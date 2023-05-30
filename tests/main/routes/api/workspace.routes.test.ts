@@ -252,6 +252,8 @@ describe("main/routes/api/workspace.routes", () => {
         // get account by email
         .mockReturnValueOnce({ find: np({ project: np({ toArray: np([mockAccount]) }) }) } as any)
         // add workspace
+        .mockReturnValueOnce({ insertOne: np() } as any)
+        // add workspaceAccount
         .mockReturnValueOnce({ insertOne: np() } as any);
 
       const result = await supertest(app)

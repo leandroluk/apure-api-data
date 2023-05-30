@@ -1,7 +1,8 @@
-import { AddWorkspaceTask, AuthorizeRequestTask } from "$/data/tasks";
+import { AddWorkspaceAccountTask, AddWorkspaceTask, AuthorizeRequestTask } from "$/data/tasks";
 import { IAddWorkspaceCase } from "$/domain/cases";
 import { CheckJwtAdapter, CreateUuidAdapter, DecrypterAdapter } from "$/infra/adapters";
 import { MongoGetAccountByEmailRepo } from "$/infra/mongo";
+import { MongoAddWorkspaceAccountRepo } from "$/infra/mongo/repos/add-workspace-account.repo";
 import { MongoAddWorkspaceRepo } from "$/infra/mongo/repos/add-workspace.repo";
 import { AddWorkspaceCase } from "$/presentation/cases";
 
@@ -23,9 +24,15 @@ export const addWorkspaceFactory = (): IAddWorkspaceCase => {
       createUuid,
       addWorkspace
     );
+    const addWorkspaceAccountRepo = new MongoAddWorkspaceAccountRepo();
+    const addWorkspaceAccountTask = new AddWorkspaceAccountTask(
+      createUuid,
+      addWorkspaceAccountRepo
+    );
     instance = new AddWorkspaceCase(
       authorizeRequestTask,
-      addWorkspaceTask
+      addWorkspaceTask,
+      addWorkspaceAccountTask
     );
   }
   return instance;
