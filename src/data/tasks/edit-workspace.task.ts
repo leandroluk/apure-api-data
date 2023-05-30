@@ -8,16 +8,19 @@ export class EditWorkspaceTask implements IEditWorkspaceTask {
   ) { }
 
   async edit (
-    id: IEditWorkspaceTask.Id,
-    changes: IEditWorkspaceTask.Changes
+    data: IEditWorkspaceTask.Data
   ): Promise<IEditWorkspaceTask.Result> {
-    const workspace = await this.getWorkspace.get(id);
+    const workspace = await this.getWorkspace.get(data.id);
     if (workspace && !workspace._removed) {
-      const fullChanges: IEditWorkspaceRepo.Changes = {
-        ...changes,
+      const fullChanges: IEditWorkspaceRepo.Data["changes"] = {
+        ...data.changes,
         _timestamp: new Date()
       };
-      await this.editWorkspace.edit(id, fullChanges);
+      await this.editWorkspace.edit({
+        id: data.id,
+        changes: fullChanges,
+        sessionId: data.sessionId
+      });
       return { ...workspace, ...fullChanges };
     }
   }

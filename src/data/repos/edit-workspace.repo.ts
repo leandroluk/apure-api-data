@@ -3,11 +3,13 @@ import { IWorkspace } from "$/domain/models";
 
 export type IEditWorkspaceRepo = {
   edit (
-    id: IEditWorkspaceRepo.Id,
-    changes: IEditWorkspaceRepo.Changes
+    data: IEditWorkspaceRepo.Data,
   ): Promise<void>;
 };
 export namespace IEditWorkspaceRepo {
-  export type Id = IWorkspace["_id"];
-  export type Changes = Partial<Omit<IWorkspace, keyof IIndexable>> & {};
+  export type Data = {
+    id: IWorkspace["_id"];
+    changes: Partial<Omit<IWorkspace, keyof IIndexable>>;
+    sessionId?: string;
+  };
 }

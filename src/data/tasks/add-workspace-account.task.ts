@@ -12,16 +12,19 @@ export class AddWorkspaceAccountTask implements IAddWorkspaceAccountTask {
     data: IAddWorkspaceAccountTask.Data
   ): Promise<IAddWorkspaceAccountTask.Result> {
     const now = new Date();
-    const workspaceAccount: IAddWorkspaceAccountRepo.Data = {
+    const workspaceAccount: IAddWorkspaceAccountRepo.Data["value"] = {
       _id: await this.createUuid.create(),
       _timestamp: now,
       _created: now,
       _removed: null,
-      account_id: data.account_id,
-      workspace_id: data.workspace_id,
-      roles: data.roles
+      account_id: data.value.account_id,
+      workspace_id: data.value.workspace_id,
+      roles: data.value.roles
     };
-    await this.addWorkspaceAccount.add(workspaceAccount);
+    await this.addWorkspaceAccount.add({
+      value: workspaceAccount,
+      sessionId: data.sessionId
+    });
     return workspaceAccount;
   }
 }

@@ -6,7 +6,7 @@ const makeSut = (): {
   getWorkspace: MockGetWorkspaceRepo;
   editWorkspace: MockEditWorkspaceRepo;
   sut: EnableWorkspaceTask;
-  id: IEnableWorkspaceTask.Id;
+  data: IEnableWorkspaceTask.Data;
 } => {
   const getWorkspace = new MockGetWorkspaceRepo();
   const editWorkspace = new MockEditWorkspaceRepo();
@@ -15,43 +15,45 @@ const makeSut = (): {
     getWorkspace,
     editWorkspace
   );
-  const id: IEnableWorkspaceTask.Id = "id";
+  const data: IEnableWorkspaceTask.Data = {
+    id: "id"
+  };
   return {
     getWorkspace,
     editWorkspace,
     sut,
-    id
+    data
   };
 };
 
 describe("data/tasks/enable-workspace.task", () => {
   it("should throw if getWorkspace.get throws", async () => {
-    const { getWorkspace, sut, id } = makeSut();
+    const { getWorkspace, sut, data } = makeSut();
     jest.spyOn(getWorkspace, "get").mockRejectedValue(new Error());
-    await expect(sut.enable(id)).rejects.toThrow();
+    await expect(sut.enable(data)).rejects.toThrow();
   });
 
   it("should return undefined if getWorkspace.get return falsy", async () => {
-    const { getWorkspace, sut, id } = makeSut();
+    const { getWorkspace, sut, data } = makeSut();
     getWorkspace.$get = undefined;
-    await expect(sut.enable(id)).resolves.toBeUndefined();
+    await expect(sut.enable(data)).resolves.toBeUndefined();
   });
 
   it("should return undefined if getWorkspace.get return enabled", async () => {
-    const { getWorkspace, sut, id } = makeSut();
+    const { getWorkspace, sut, data } = makeSut();
     getWorkspace.$get._removed = null;
-    await expect(sut.enable(id)).resolves.toBeUndefined();
+    await expect(sut.enable(data)).resolves.toBeUndefined();
   });
 
   it("should throw if editWorkspace.edit throws", async () => {
-    const { editWorkspace, sut, id } = makeSut();
+    const { editWorkspace, sut, data } = makeSut();
     jest.spyOn(editWorkspace, "edit").mockRejectedValue(new Error());
-    await expect(sut.enable(id)).rejects.toThrow();
+    await expect(sut.enable(data)).rejects.toThrow();
   });
 
   it("should return enabled workspace", async () => {
-    const { getWorkspace, sut, id } = makeSut();
-    const result = await sut.enable(id);
+    const { getWorkspace, sut, data } = makeSut();
+    const result = await sut.enable(data);
     expect(result._id).toBe(getWorkspace.$get._id);
     expect(result._timestamp).not.toBe(getWorkspace.$get._timestamp);
     expect(result._created).toBe(getWorkspace.$get._created);

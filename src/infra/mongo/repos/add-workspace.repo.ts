@@ -9,6 +9,6 @@ export class MongoAddWorkspaceRepo implements IAddWorkspaceRepo {
   ): Promise<void> {
     await mongoHelper
       .collection<IWorkspace>(workspaceSchema.collection)
-      .insertOne(data);
+      .insertOne(data.value, { session: mongoHelper.sessions[data.sessionId] });
   }
 }

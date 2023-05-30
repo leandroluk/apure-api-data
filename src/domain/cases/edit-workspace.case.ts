@@ -1,4 +1,4 @@
-import { IAuthenticatedHeader, IEntity } from "../generics";
+import { IAuthenticatedHeader, IEntity, IWithSessionHeader } from "../generics";
 import { IWorkspace } from "../models";
 
 /**
@@ -9,7 +9,7 @@ export type IEditWorkspaceCase = {
 };
 export namespace IEditWorkspaceCase {
   export type Data = {
-    headers: IAuthenticatedHeader;
+    headers: IAuthenticatedHeader & IWithSessionHeader;
     params: Pick<IWorkspace, "_id">;
     body: Partial<Omit<IWorkspace, keyof IEntity>>;
   };

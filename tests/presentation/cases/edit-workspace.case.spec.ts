@@ -18,7 +18,7 @@ const makeSut = (): {
     editWorkspace
   );
   const data: IEditWorkspaceCase.Data = {
-    headers: mockAuthenticatedHeader,
+    headers: { ...mockAuthenticatedHeader, sid: "sid" },
     params: {
       _id: mockWorkspace._id
     },

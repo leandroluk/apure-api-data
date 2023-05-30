@@ -16,11 +16,17 @@ export class AddWorkspaceCase implements IAddWorkspaceCase {
     if (!account) {
       throw new UnauthorizedError();
     }
-    const workspace = await this.addWorkspace.add(data.body);
+    const workspace = await this.addWorkspace.add({
+      value: data.body,
+      sessionId: data.headers.sid
+    });
     await this.addWorkspaceAccount.add({
-      account_id: account._id,
-      workspace_id: workspace._id,
-      roles: ["admin"]
+      value: {
+        account_id: account._id,
+        workspace_id: workspace._id,
+        roles: ["admin"]
+      },
+      sessionId: data.headers.sid
     });
     return workspace;
   }

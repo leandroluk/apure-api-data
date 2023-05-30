@@ -5,11 +5,14 @@ import { workspaceSchema } from "../schemas";
 
 export class MongoEditWorkspaceRepo implements IEditWorkspaceRepo {
   async edit (
-    id: IEditWorkspaceRepo.Id,
-    changes: IEditWorkspaceRepo.Changes
+    data: IEditWorkspaceRepo.Data
   ): Promise<void> {
     await mongoHelper
       .collection<IWorkspace>(workspaceSchema.collection)
-      .findOneAndUpdate({ _id: id }, { $set: changes });
+      .findOneAndUpdate(
+        { _id: data.id },
+        { $set: data.changes },
+        { session: mongoHelper.sessions[data.sessionId] }
+      );
   }
 }

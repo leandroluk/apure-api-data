@@ -3,12 +3,14 @@ import { IWorkspace } from "$/domain/models";
 
 export type IEditWorkspaceTask = {
   edit (
-    id: IEditWorkspaceTask.Id,
-    changes: IEditWorkspaceTask.Changes
+    data: IEditWorkspaceTask.Data,
   ): Promise<IEditWorkspaceTask.Result>;
 };
 export namespace IEditWorkspaceTask {
-  export type Id = IWorkspace["_id"];
-  export type Changes = Partial<Omit<IWorkspace, keyof IEntity>>;
+  export type Data = {
+    id: IWorkspace["_id"];
+    changes: Partial<Omit<IWorkspace, keyof IEntity>>;
+    sessionId?: string;
+  };
   export type Result = IWorkspace & {};
 }

@@ -9,6 +9,6 @@ export class MongoAddWorkspaceAccountRepo implements IAddWorkspaceAccountRepo {
   ): Promise<void> {
     await mongoHelper
       .collection<IWorkspaceAccount>(workspaceAccountSchema.collection)
-      .insertOne(data);
+      .insertOne(data.value, { session: mongoHelper.sessions[data.sessionId] });
   }
 }

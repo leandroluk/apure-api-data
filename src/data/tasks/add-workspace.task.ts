@@ -12,15 +12,18 @@ export class AddWorkspaceTask implements IAddWorkspaceTask {
     data: IAddWorkspaceTask.Data
   ): Promise<IAddWorkspaceTask.Result> {
     const now = new Date();
-    const workspace: IAddWorkspaceRepo.Data = {
+    const workspace: IAddWorkspaceRepo.Data["value"] = {
       _id: await this.createUuid.create(),
       _timestamp: now,
       _created: now,
       _removed: null,
-      name: data.name,
-      ownerCnpj: data.ownerCnpj
+      name: data.value.name,
+      ownerCnpj: data.value.ownerCnpj
     };
-    await this.addWorkspace.add(workspace);
+    await this.addWorkspace.add({
+      value: workspace,
+      sessionId: data.sessionId
+    });
     return workspace;
   }
 }

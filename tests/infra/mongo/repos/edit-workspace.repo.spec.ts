@@ -3,31 +3,31 @@ import { MongoEditWorkspaceRepo, mongoHelper } from "$/infra/mongo";
 
 const makeSut = (): {
   sut: MongoEditWorkspaceRepo;
-  id: IEditWorkspaceRepo.Id;
-  changes: IEditWorkspaceRepo.Changes;
+  data: IEditWorkspaceRepo.Data;
 } => {
   const sut = new MongoEditWorkspaceRepo();
-  const id: IEditWorkspaceRepo.Id = "id";
-  const changes: IEditWorkspaceRepo.Changes = {};
+  const data: IEditWorkspaceRepo.Data = {
+    id: "id",
+    changes: {}
+  };
   return {
     sut,
-    id,
-    changes
+    data
   };
 };
 
 describe("infra/adapters/edit-workspace.repo", () => {
   it("should throw if mongoHelper.collection throws", async () => {
-    const { sut, id, changes } = makeSut();
+    const { sut, data } = makeSut();
     jest.spyOn(mongoHelper, "collection")
       .mockReturnValueOnce({ findOneAndUpdate: throwFn } as any);
-    await expect(sut.edit(id, changes)).rejects.toThrow();
+    await expect(sut.edit(data)).rejects.toThrow();
   });
 
   it("should return if edit accountLock", async () => {
-    const { sut, id, changes } = makeSut();
+    const { sut, data } = makeSut();
     jest.spyOn(mongoHelper, "collection")
       .mockReturnValueOnce({ findOneAndUpdate: np } as any);
-    await expect(sut.edit(id, changes)).resolves.toBeUndefined();
+    await expect(sut.edit(data)).resolves.toBeUndefined();
   });
 });

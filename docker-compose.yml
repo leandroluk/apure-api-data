@@ -6,16 +6,43 @@ networks:
 
 services:
   mongo:
-    image: mongo
+    image: mongo:5
     container_name: apure-api-data_mongo
     hostname: mongo
-    ports: [ 40000:27017 ]
-    networks: [ apure-api-data ]
+    restart: "always"
+    expose:
+      - 27017
+    ports: 
+      - 27017:27017
+    networks: 
+      - apure-api-data
+    volumes: 
+      - ./replica.key:/replica.key
     environment:
       MONGO_INITDB_ROOT_USERNAME: mongo
       MONGO_INITDB_ROOT_PASSWORD: mongo
       MONGO_INITDB_DATABASE: db
     healthcheck:
-      test: echo 'db.runCommand('ping').ok' | mongo mongo:27017/db --quiet 1
-      timeout: 20s
+      test: echo 'db.runCommand("ping").ok' | mongo mongo:27017/test --quiet
+      interval: 5s
+      timeout: 5s
       retries: 10
+    command: mongod --replSet rs --keyFile /replica.key --journal --bind_ip_all
+ 
+  mongo-init:
+    image: mongo:5
+    container_name: apure-api-data_mongo-init
+    restart: "no"
+    networks: 
+      - apure-api-data
+    depends_on:
+      mongo:
+        condition: service_healthy
+    command: >
+      mongosh --host mongo:27017 -u mongo -p mongo --eval 
+      '
+      rs.initiate({
+        _id: "rs",
+        members: [{ _id: 0, host: "localhost:27017" }]
+      })
+      '
