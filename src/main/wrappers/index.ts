@@ -1,1 +1,1 @@
-export * from "./mongo-transaction.wrapper";
+export * from "./mongo.wrapper";

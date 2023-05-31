@@ -1,7 +1,7 @@
 import { mongoHelper } from "$/infra/mongo";
 import { NextFunction, Request, RequestHandler, Response } from "express";
 
-export const mongoTransactionWrapper = (handler: RequestHandler) => {
+export const mongoWrapper = (handler: RequestHandler) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     const sid = await mongoHelper.startSession();
     req.headers.sid = sid;
