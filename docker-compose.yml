@@ -17,8 +17,8 @@ services:
     networks: 
       - apure-api-data
     volumes: 
-      - ./.docker/db:/data/db
-      - ./.docker/replica.key:/replica.key
+      - ./.tmp/db:/data/db
+      - ./replica.key:/replica.key
     environment:
       MONGO_INITDB_ROOT_USERNAME: mongo
       MONGO_INITDB_ROOT_PASSWORD: mongo
