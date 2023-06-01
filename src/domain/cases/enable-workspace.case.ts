@@ -7,7 +7,7 @@ export type IEnableWorkspaceCase = {
 export namespace IEnableWorkspaceCase {
   export type Data = {
     headers: IAuthenticatedHeader & IWithSessionHeader;
-    params: Pick<IWorkspace, "_id">;
+    params: { workspace_id: string; };
   };
   export type Result = IWorkspace & {};
 }

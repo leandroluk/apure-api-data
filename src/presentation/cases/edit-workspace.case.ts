@@ -16,12 +16,12 @@ export class EditWorkspaceCase implements IEditWorkspaceCase {
       throw new UnauthorizedError();
     }
     const workspace = await this.editWorkspace.edit({
-      id: data.params._id,
+      id: data.params.workspace_id,
       changes: data.body,
       sessionId: data.headers.sid
     });
     if (!workspace) {
-      throw new NotFoundError(`Workspace "${data.params._id}" not found`);
+      throw new NotFoundError(`Workspace "${data.params.workspace_id}" not found`);
     }
     return workspace;
   }

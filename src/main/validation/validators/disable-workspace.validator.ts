@@ -8,7 +8,7 @@ export const disableWorkspaceValidator = validationHelper.makeValidator(
       authorization: Joi.string().required().pattern(/^Bearer\s.+$/)
     }),
     params: Joi.object<IDisableWorkspaceCase.Data["params"]>({
-      _id: Joi.string().required()
+      workspace_id: Joi.string().required()
     })
   })
 );

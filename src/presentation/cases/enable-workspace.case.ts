@@ -16,11 +16,11 @@ export class EnableWorkspaceCase implements IEnableWorkspaceCase {
       throw new UnauthorizedError();
     }
     const workspace = await this.enableWorkspace.enable({
-      id: data.params._id,
+      id: data.params.workspace_id,
       sessionId: data.headers.sid
     });
     if (!workspace) {
-      throw new NotFoundError(`Workspace "${data.params._id}" not found`);
+      throw new NotFoundError(`Workspace "${data.params.workspace_id}" not found`);
     }
     return workspace;
   }

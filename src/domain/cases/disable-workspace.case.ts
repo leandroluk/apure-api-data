@@ -1,5 +1,4 @@
 import { IAuthenticatedHeader, IWithSessionHeader } from "../generics";
-import { IWorkspace } from "../models";
 
 /**
  * @see https://github.com/leandroluk/apure-api-data/issues/7
@@ -10,6 +9,6 @@ export type IDisableWorkspaceCase = {
 export namespace IDisableWorkspaceCase {
   export type Data = {
     headers: IAuthenticatedHeader & IWithSessionHeader;
-    params: Pick<IWorkspace, "_id">;
+    params: { workspace_id: string; };
   };
 }

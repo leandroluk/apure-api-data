@@ -6,7 +6,7 @@ import { workspaceTag } from "../tags";
 import { IObjectSchema } from "../types";
 
 export const enableWorkspacePath: OpenAPIV3.PathsObject = {
-  "/api/workspace/{_id}/restore": {
+  "/api/workspace/{workspace_id}/restore": {
     put: {
       externalDocs: {
         url: "https://github.com/leandroluk/apure-api-data/issues/26"
@@ -16,7 +16,7 @@ export const enableWorkspacePath: OpenAPIV3.PathsObject = {
       summary: "Enable workspace",
       security: [{ bearerAuth: [] }],
       parameters: [
-        { in: "path", name: "_id", schema: { type: "string" }, required: true }
+        { in: "path", name: "workspace_id", schema: { type: "string" }, required: true }
       ],
       responses: {
         200: {

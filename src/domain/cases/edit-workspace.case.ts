@@ -10,7 +10,7 @@ export type IEditWorkspaceCase = {
 export namespace IEditWorkspaceCase {
   export type Data = {
     headers: IAuthenticatedHeader & IWithSessionHeader;
-    params: Pick<IWorkspace, "_id">;
+    params: { workspace_id: string; };
     body: Partial<Omit<IWorkspace, keyof IEntity>>;
   };
   export type Result = IWorkspace & {};

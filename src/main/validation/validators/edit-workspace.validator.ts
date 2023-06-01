@@ -8,7 +8,7 @@ export const editWorkspaceValidator = validationHelper.makeValidator(
       authorization: Joi.string().required().pattern(/^Bearer\s.+$/)
     }),
     params: Joi.object<IEditWorkspaceCase.Data["params"]>({
-      _id: Joi.string().required()
+      workspace_id: Joi.string().required()
     }),
     body: Joi.object<IEditWorkspaceCase.Data["body"]>({
       name: Joi.string().max(100),

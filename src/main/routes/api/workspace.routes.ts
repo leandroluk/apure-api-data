@@ -6,21 +6,21 @@ import { Router } from "express";
 const workspaceRoutes = Router();
 
 // enableWorkspace
-workspaceRoutes.delete("/:_id/restore", mongoWrapper(async (req, res) => {
+workspaceRoutes.delete("/:workspace_id/restore", mongoWrapper(async (req, res) => {
   const data = await validators.disableWorkspaceValidator(req);
   const result = await factories.enableWorkspaceFactory().enable(data);
   res.json(result);
 }));
 
 // editWorkspace
-workspaceRoutes.put("/:_id", mongoWrapper(async (req, res) => {
+workspaceRoutes.put("/:workspace_id", mongoWrapper(async (req, res) => {
   const data = await validators.editWorkspaceValidator(req);
   const result = await factories.editWorkspaceFactory().edit(data);
   res.json(result);
 }));
 
 // disableWorkspace
-workspaceRoutes.delete("/:_id", mongoWrapper(async (req, res) => {
+workspaceRoutes.delete("/:workspace_id", mongoWrapper(async (req, res) => {
   const data = await validators.disableWorkspaceValidator(req);
   await factories.disableWorkspaceFactory().disable(data);
   res.sendStatus(204);

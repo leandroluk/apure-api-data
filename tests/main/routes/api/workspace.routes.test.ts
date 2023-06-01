@@ -5,8 +5,8 @@ import { mockAccount, mockWorkspace } from "mocks/domain/models";
 import supertest from "supertest";
 
 describe("main/routes/api/workspace.routes", () => {
-  describe("DELETE /api/workspace/:_id/restore", () => {
-    const url = "/api/workspace/_id/restore";
+  describe("DELETE /api/workspace/:workspace_id/restore", () => {
+    const url = "/api/workspace/workspace_id/restore";
 
     it.each([
       ['"authorization" is empty', { authorization: "" }],
@@ -65,8 +65,8 @@ describe("main/routes/api/workspace.routes", () => {
     });
   });
 
-  describe("PUT /api/workspace/:_id", () => {
-    const url = "/api/workspace/_id";
+  describe("PUT /api/workspace/:workspace_id", () => {
+    const url = "/api/workspace/workspace_id";
     const validBody = {
       name: "Example",
       ownerCnpj: "75748633000181"
@@ -148,8 +148,8 @@ describe("main/routes/api/workspace.routes", () => {
     });
   });
 
-  describe("DELETE /api/workspace/:_id", () => {
-    const url = "/api/workspace/_id";
+  describe("DELETE /api/workspace/:workspace_id", () => {
+    const url = "/api/workspace/workspace_id";
 
     it.each([
       ['"authorization" is empty', { authorization: "" }],
