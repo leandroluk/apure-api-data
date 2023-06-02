@@ -7,9 +7,7 @@ export class EnableWorkspaceTask implements IEnableWorkspaceTask {
     private readonly editWorkspace: IEditWorkspaceRepo
   ) { }
 
-  async enable (
-    data: IEnableWorkspaceTask.Data
-  ): Promise<IEnableWorkspaceTask.Result> {
+  async enable (data: IEnableWorkspaceTask.Data): Promise<IEnableWorkspaceTask.Result> {
     const workspace = await this.getWorkspace.get(data.id);
     if (workspace?._removed) {
       const changes: IEditWorkspaceRepo.Data["changes"] = {

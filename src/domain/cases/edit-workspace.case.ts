@@ -5,7 +5,7 @@ import { IWorkspace } from "../models";
  * @see https://github.com/leandroluk/apure-api-data/issues/11
  */
 export type IEditWorkspaceCase = {
-  edit (data: IEditWorkspaceCase.Data): Promise<IEditWorkspaceCase.Result>;
+  edit (data: IEditWorkspaceCase.Data): Promise<void>;
 };
 export namespace IEditWorkspaceCase {
   export type Data = {
@@ -13,5 +13,4 @@ export namespace IEditWorkspaceCase {
     params: { workspace_id: string; };
     body: Partial<Omit<IWorkspace, keyof IEntity>>;
   };
-  export type Result = IWorkspace & {};
 }

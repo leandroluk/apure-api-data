@@ -7,9 +7,7 @@ export class EditWorkspaceTask implements IEditWorkspaceTask {
     private readonly editWorkspace: IEditWorkspaceRepo
   ) { }
 
-  async edit (
-    data: IEditWorkspaceTask.Data
-  ): Promise<IEditWorkspaceTask.Result> {
+  async edit (data: IEditWorkspaceTask.Data): Promise<IEditWorkspaceTask.Result> {
     const workspace = await this.getWorkspace.get(data.id);
     if (workspace && !workspace._removed) {
       const fullChanges: IEditWorkspaceRepo.Data["changes"] = {

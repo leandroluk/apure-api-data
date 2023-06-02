@@ -1,4 +1,5 @@
 import { AddWorkspaceAccountTask } from "$/data/tasks";
+import { IWorkspaceAccount } from "$/domain/models";
 import { IAddWorkspaceAccountTask } from "$/presentation/tasks";
 import { MockCreateUuidAdapter } from "mocks/data/adapters";
 import { MockAddWorkspaceAccountRepo } from "mocks/data/repos";
@@ -18,7 +19,7 @@ const makeSut = (): {
   const data: IAddWorkspaceAccountTask.Data = {
     value: {
       account_id: "account_id",
-      roles: ["admin"],
+      roles: [IWorkspaceAccount.Role.Admin],
       workspace_id: "workspace_id"
     }
   };

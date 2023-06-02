@@ -63,6 +63,6 @@ describe("presentation/cases/edit-workspace.case", () => {
 
   it("should return edited workspace", async () => {
     const { sut, data } = makeSut();
-    await expect(sut.edit(data)).resolves.toBeDefined();
+    await expect(sut.edit(data)).resolves.toBeUndefined();
   });
 });

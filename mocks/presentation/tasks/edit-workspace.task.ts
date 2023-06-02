@@ -6,9 +6,7 @@ export class MockEditWorkspaceTask implements IEditWorkspaceTask {
     public $edit: IEditWorkspaceTask.Result = { ...mockWorkspace }
   ) { }
 
-  async edit (
-    _data: IEditWorkspaceTask.Data
-  ): Promise<IEditWorkspaceTask.Result> {
+  async edit (_data: IEditWorkspaceTask.Data): Promise<IEditWorkspaceTask.Result> {
     return this.$edit;
   }
 }

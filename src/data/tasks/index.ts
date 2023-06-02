@@ -4,3 +4,6 @@ export * from "./authorize-request.task";
 export * from "./disable-workspace.task";
 export * from "./edit-workspace.task";
 export * from "./enable-workspace.task";
+export * from "./get-account.task";
+export * from "./get-workspace-account-by-account.task";
+export * from "./get-workspace.task";

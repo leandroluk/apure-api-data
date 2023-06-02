@@ -19,7 +19,7 @@ classDiagram
     _created: Date
     _removed?: Date
     name: string
-    ownerCnpj: IWorkspacePlayer[cnpj]
+    ownerCnpj: WorkspacePlayer[cnpj]
   }
   class WorkspaceGroup {
     _id: string
@@ -48,6 +48,7 @@ classDiagram
     _created: Date
     _removed?: Date
     workspace_id: string
+    group_id: WorkspaceGroup[_id]
     name: string
     cnpj: string
     state: string

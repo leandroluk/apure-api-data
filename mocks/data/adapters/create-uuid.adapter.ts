@@ -5,7 +5,7 @@ export class MockCreateUuidAdapter implements ICreateUuidAdapter {
     public $create = "uuid"
   ) { }
 
-  async create (): Promise<string> {
+  async create (): Promise<ICreateUuidAdapter.Result> {
     return this.$create;
   }
 }

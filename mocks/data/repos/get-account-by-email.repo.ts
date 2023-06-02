@@ -6,9 +6,7 @@ export class MockGetAccountByEmailRepo implements IGetAccountByEmailRepo {
     public $get: IGetAccountByEmailRepo.Result = { ...mockAccount }
   ) { }
 
-  async get (
-    _email: IGetAccountByEmailRepo.Email
-  ): Promise<IGetAccountByEmailRepo.Result> {
+  async get (_email: IGetAccountByEmailRepo.Email): Promise<IGetAccountByEmailRepo.Result> {
     return this.$get;
   }
 }

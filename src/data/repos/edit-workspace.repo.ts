@@ -2,9 +2,7 @@ import { IIndexable } from "$/domain/generics";
 import { IWorkspace } from "$/domain/models";
 
 export type IEditWorkspaceRepo = {
-  edit (
-    data: IEditWorkspaceRepo.Data,
-  ): Promise<void>;
+  edit (data: IEditWorkspaceRepo.Data,): Promise<void>;
 };
 export namespace IEditWorkspaceRepo {
   export type Data = {

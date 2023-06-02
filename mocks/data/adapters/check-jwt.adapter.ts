@@ -8,9 +8,7 @@ export class MockCheckJwtAdapter implements ICheckJwtAdapter {
     }
   ) { }
 
-  async check (
-    _jwt: string
-  ): Promise<ICheckJwtAdapter.Result> {
+  async check (_jwt: ICheckJwtAdapter.Jwt): Promise<ICheckJwtAdapter.Result> {
     return this.$check;
   }
 }

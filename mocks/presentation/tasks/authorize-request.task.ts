@@ -6,9 +6,7 @@ export class MockAuthorizeRequestTask implements IAuthorizeRequestTask {
     public $authorize: IAuthorizeRequestTask.Result = { ...mockAccount }
   ) { }
 
-  async authorize (
-    _token: IAuthorizeRequestTask.Token
-  ): Promise<IAuthorizeRequestTask.Result> {
+  async authorize (_token: IAuthorizeRequestTask.Token): Promise<IAuthorizeRequestTask.Result> {
     return this.$authorize;
   }
 }
