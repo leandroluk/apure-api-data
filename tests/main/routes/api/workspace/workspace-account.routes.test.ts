@@ -50,7 +50,7 @@ describe("main/routes/api/workspace/workspace-account.routes", () => {
       expect(result.status).toBe(401);
     });
 
-    it("should retunr 409 if jwt account no have a admin role", async () => {
+    it("should return 409 if jwt account no have a admin role", async () => {
       const viewerWorkspaceAccount = { ...mockWorkspaceAccount, roles: [IWorkspaceAccount.Role.Viewer] };
       jest.spyOn(mongoHelper, "collection")
         // get account by email
@@ -74,6 +74,8 @@ describe("main/routes/api/workspace/workspace-account.routes", () => {
       jest.spyOn(mongoHelper, "collection")
         // get account by email
         .mockReturnValueOnce({ find: np({ project: np({ toArray: np([mockAccount]) }) }) } as any)
+        // get workspace account by account
+        .mockReturnValueOnce({ find: np({ project: np({ toArray: np([mockWorkspaceAccount]) }) }) } as any)
         // get account
         .mockReturnValueOnce({ find: np({ project: np({ toArray: np([]) }) }) } as any)
         // get workspace
@@ -92,6 +94,8 @@ describe("main/routes/api/workspace/workspace-account.routes", () => {
       jest.spyOn(mongoHelper, "collection")
         // get account by email
         .mockReturnValueOnce({ find: np({ project: np({ toArray: np([mockAccount]) }) }) } as any)
+        // get workspace account by account
+        .mockReturnValueOnce({ find: np({ project: np({ toArray: np([mockWorkspaceAccount]) }) }) } as any)
         // get account
         .mockReturnValueOnce({ find: np({ project: np({ toArray: np([removedAccount]) }) }) } as any)
         // get workspace
@@ -109,6 +113,8 @@ describe("main/routes/api/workspace/workspace-account.routes", () => {
       jest.spyOn(mongoHelper, "collection")
         // get account by email
         .mockReturnValueOnce({ find: np({ project: np({ toArray: np([mockAccount]) }) }) } as any)
+        // get workspace account by account
+        .mockReturnValueOnce({ find: np({ project: np({ toArray: np([mockWorkspaceAccount]) }) }) } as any)
         // get account
         .mockReturnValueOnce({ find: np({ project: np({ toArray: np([mockAccount]) }) }) } as any)
         // get workspace
@@ -127,6 +133,8 @@ describe("main/routes/api/workspace/workspace-account.routes", () => {
       jest.spyOn(mongoHelper, "collection")
         // get account by email
         .mockReturnValueOnce({ find: np({ project: np({ toArray: np([mockAccount]) }) }) } as any)
+        // get workspace account by account
+        .mockReturnValueOnce({ find: np({ project: np({ toArray: np([mockWorkspaceAccount]) }) }) } as any)
         // get account
         .mockReturnValueOnce({ find: np({ project: np({ toArray: np([mockAccount]) }) }) } as any)
         // get workspace
@@ -144,6 +152,8 @@ describe("main/routes/api/workspace/workspace-account.routes", () => {
       jest.spyOn(mongoHelper, "collection")
         // get account by email
         .mockReturnValueOnce({ find: np({ project: np({ toArray: np([mockAccount]) }) }) } as any)
+        // get workspace account by account
+        .mockReturnValueOnce({ find: np({ project: np({ toArray: np([mockWorkspaceAccount]) }) }) } as any)
         // get account
         .mockReturnValueOnce({ find: np({ project: np({ toArray: np([mockAccount]) }) }) } as any)
         // get workspace

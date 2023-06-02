@@ -70,6 +70,12 @@ describe("presentation/cases/add-account-to-workspace.case", () => {
     await expect(sut.add(data)).rejects.toThrow();
   });
 
+  it("should throw if getWorkspaceAccountByAccount.get return falsy", async () => {
+    const { getWorkspaceAccountByAccount, sut, data } = makeSut();
+    getWorkspaceAccountByAccount.$get = undefined;
+    await expect(sut.add(data)).rejects.toThrow();
+  });
+
   it("should throw ConflitError if getWorkspaceAccountByAccount.get no return a admin role", async () => {
     const { getWorkspaceAccountByAccount, sut, data } = makeSut();
     getWorkspaceAccountByAccount.$get.roles = [IWorkspaceAccount.Role.Viewer];

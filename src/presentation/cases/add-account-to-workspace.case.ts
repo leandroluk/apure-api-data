@@ -33,7 +33,7 @@ export class AddAccountToWorkspaceCase implements IAddAccountToWorkspaceCase {
       this.getAccount.get(data.body.account_id),
       this.getWorkspace.get(data.params.workspace_id)
     ]);
-    if (!workspaceAccount.roles.includes(IWorkspaceAccount.Role.Admin)) {
+    if (!workspaceAccount?.roles.includes(IWorkspaceAccount.Role.Admin)) {
       throw new ConflitError("You no have permissions to perform this action");
     } else if (!accountToAdd || accountToAdd._removed) {
       throw new NotFoundError(`Account "${data.body.account_id}" not found`);
