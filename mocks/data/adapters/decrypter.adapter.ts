@@ -5,9 +5,7 @@ export class MockDecrypterAdapter implements IDecrypterAdapter {
     public $decript = "decrypted"
   ) { }
 
-  async decrypt (
-    _hashed: string
-  ): Promise<string> {
+  async decrypt (_hashed: IDecrypterAdapter.Hashed): Promise<IDecrypterAdapter.Result> {
     return this.$decript;
   }
 }

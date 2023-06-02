@@ -9,9 +9,7 @@ export class AuthorizeRequestTask implements IAuthorizeRequestTask {
     private readonly getAccountByEmail: IGetAccountByEmailRepo
   ) { }
 
-  async authorize (
-    token: IAuthorizeRequestTask.Token
-  ): Promise<IAuthorizeRequestTask.Result> {
+  async authorize (token: IAuthorizeRequestTask.Token): Promise<IAuthorizeRequestTask.Result> {
     const jwt = await this.decrypter.decrypt(token.split(" ").at(-1));
     if (jwt) {
       const checked = await this.checkJwt.check(jwt);

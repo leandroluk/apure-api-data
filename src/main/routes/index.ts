@@ -4,7 +4,7 @@ import swaggerUI from "swagger-ui-express";
 import { swagger } from "../swagger";
 import { apiRoutes } from "./api";
 
-const routes = Router();
+const routes = Router({ mergeParams: true });
 
 routes.use("/api", apiRoutes);
 

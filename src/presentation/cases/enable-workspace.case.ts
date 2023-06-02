@@ -8,20 +8,17 @@ export class EnableWorkspaceCase implements IEnableWorkspaceCase {
     private readonly enableWorkspace: IEnableWorkspaceTask
   ) { }
 
-  async enable (
-    data: IEnableWorkspaceCase.Data
-  ): Promise<IEnableWorkspaceCase.Result> {
-    const authorized = await this.authorizeRequest.authorize(data.headers.authorization);
-    if (!authorized) {
+  async enable (data: IEnableWorkspaceCase.Data): Promise<void> {
+    const jwtAccount = await this.authorizeRequest.authorize(data.headers.authorization);
+    if (!jwtAccount) {
       throw new UnauthorizedError();
     }
     const workspace = await this.enableWorkspace.enable({
-      id: data.params._id,
+      id: data.params.workspace_id,
       sessionId: data.headers.sid
     });
     if (!workspace) {
-      throw new NotFoundError(`Workspace "${data.params._id}" not found`);
+      throw new NotFoundError(`Workspace "${data.params.workspace_id}" not found`);
     }
-    return workspace;
   }
 }

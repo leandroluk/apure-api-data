@@ -7,9 +7,7 @@ export class DisableWorkspaceTask implements IDisableWorkspaceTask {
     private readonly editWorkspace: IEditWorkspaceRepo
   ) { }
 
-  async disable (
-    data: IDisableWorkspaceTask.Data
-  ): Promise<IDisableWorkspaceTask.Result> {
+  async disable (data: IDisableWorkspaceTask.Data): Promise<IDisableWorkspaceTask.Result> {
     const workspace = await this.getWorkspace.get(data.id);
     if (workspace && !workspace._removed) {
       const now = new Date();

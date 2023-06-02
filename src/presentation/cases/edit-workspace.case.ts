@@ -8,21 +8,18 @@ export class EditWorkspaceCase implements IEditWorkspaceCase {
     private readonly editWorkspace: IEditWorkspaceTask
   ) { }
 
-  async edit (
-    data: IEditWorkspaceCase.Data
-  ): Promise<IEditWorkspaceCase.Result> {
-    const authorized = await this.authorizeRequest.authorize(data.headers.authorization);
-    if (!authorized) {
+  async edit (data: IEditWorkspaceCase.Data): Promise<void> {
+    const jwtAccount = await this.authorizeRequest.authorize(data.headers.authorization);
+    if (!jwtAccount) {
       throw new UnauthorizedError();
     }
     const workspace = await this.editWorkspace.edit({
-      id: data.params._id,
+      id: data.params.workspace_id,
       changes: data.body,
       sessionId: data.headers.sid
     });
     if (!workspace) {
-      throw new NotFoundError(`Workspace "${data.params._id}" not found`);
+      throw new NotFoundError(`Workspace "${data.params.workspace_id}" not found`);
     }
-    return workspace;
   }
 }

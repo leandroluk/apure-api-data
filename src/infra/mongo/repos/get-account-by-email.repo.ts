@@ -3,9 +3,7 @@ import { mongoHelper } from "../mongo.helper";
 import { accountSchema } from "../schemas";
 
 export class MongoGetAccountByEmailRepo implements IGetAccountByEmailRepo {
-  async get (
-    email: IGetAccountByEmailRepo.Email
-  ): Promise<IGetAccountByEmailRepo.Result> {
+  async get (email: IGetAccountByEmailRepo.Email): Promise<IGetAccountByEmailRepo.Result> {
     const [doc] = await mongoHelper
       .collection(accountSchema.collection)
       .find({ email })

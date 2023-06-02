@@ -20,7 +20,7 @@ const makeSut = (): {
   const data: IEnableWorkspaceCase.Data = {
     headers: { ...mockAuthenticatedHeader, sid: "sid" },
     params: {
-      _id: mockWorkspace._id
+      workspace_id: mockWorkspace._id
     }
   };
   return {
@@ -57,7 +57,7 @@ describe("presentation/cases/enable-workspace.case", () => {
   });
 
   it("should return if enable workspace", async () => {
-    const { enableWorkspace, sut, data } = makeSut();
-    await expect(sut.enable(data)).resolves.toMatchObject(enableWorkspace.$enable);
+    const { sut, data } = makeSut();
+    await expect(sut.enable(data)).resolves.toBeUndefined();
   });
 });

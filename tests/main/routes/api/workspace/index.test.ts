@@ -4,9 +4,9 @@ import { mockAuthenticatedHeader } from "mocks/domain/generics";
 import { mockAccount, mockWorkspace } from "mocks/domain/models";
 import supertest from "supertest";
 
-describe("main/routes/api/workspace.routes", () => {
-  describe("DELETE /api/workspace/:_id/restore", () => {
-    const url = "/api/workspace/_id/restore";
+describe("main/routes/api/workspace/index", () => {
+  describe("DELETE /api/workspace/:workspace_id/_restore", () => {
+    const url = "/api/workspace/workspace_id/_restore";
 
     it.each([
       ['"authorization" is empty', { authorization: "" }],
@@ -41,7 +41,7 @@ describe("main/routes/api/workspace.routes", () => {
       expect(result.status).toBe(404);
     });
 
-    it("should return 204 if enabled workspace", async () => {
+    it("should return 200 if enabled workspace", async () => {
       const disabledWorkspace = { ...mockWorkspace, _removed: new Date() };
       jest.spyOn(mongoHelper, "collection")
         // get account by email
@@ -56,17 +56,11 @@ describe("main/routes/api/workspace.routes", () => {
         .set(mockAuthenticatedHeader);
 
       expect(result.status).toBe(200);
-      expect(result.body._id).toBe(disabledWorkspace._id);
-      expect(result.body._timestamp).not.toBe(disabledWorkspace._timestamp.toJSON());
-      expect(result.body._created).toBe(disabledWorkspace._created.toJSON());
-      expect(result.body._removed).toBeNull();
-      expect(result.body.name).toBe(disabledWorkspace.name);
-      expect(result.body.ownerCnpj).toBe(disabledWorkspace.ownerCnpj);
     });
   });
 
-  describe("PUT /api/workspace/:_id", () => {
-    const url = "/api/workspace/_id";
+  describe("PUT /api/workspace/:workspace_id", () => {
+    const url = "/api/workspace/workspace_id";
     const validBody = {
       name: "Example",
       ownerCnpj: "75748633000181"
@@ -139,17 +133,11 @@ describe("main/routes/api/workspace.routes", () => {
         .send(validBody);
 
       expect(result.status).toBe(200);
-      expect(result.body._id).toBeDefined();
-      expect(result.body._timestamp).not.toBe(mockWorkspace._timestamp.toJSON());
-      expect(result.body._created).toBe(mockWorkspace._created.toJSON());
-      expect(result.body._removed).toBeNull();
-      expect(result.body.name).toBe(validBody.name);
-      expect(result.body.ownerCnpj).toBe(validBody.ownerCnpj);
     });
   });
 
-  describe("DELETE /api/workspace/:_id", () => {
-    const url = "/api/workspace/_id";
+  describe("DELETE /api/workspace/:workspace_id", () => {
+    const url = "/api/workspace/workspace_id";
 
     it.each([
       ['"authorization" is empty', { authorization: "" }],
@@ -184,7 +172,7 @@ describe("main/routes/api/workspace.routes", () => {
       expect(result.status).toBe(404);
     });
 
-    it("should return 204 if disable workspace", async () => {
+    it("should return 200 if disable workspace", async () => {
       jest.spyOn(mongoHelper, "collection")
         // get account by email
         .mockReturnValueOnce({ find: np({ project: np({ toArray: np([mockAccount]) }) }) } as any)
@@ -197,7 +185,7 @@ describe("main/routes/api/workspace.routes", () => {
         .delete(url)
         .set(mockAuthenticatedHeader);
 
-      expect(result.status).toBe(204);
+      expect(result.status).toBe(200);
     });
   });
 
@@ -262,12 +250,6 @@ describe("main/routes/api/workspace.routes", () => {
         .send(validBody);
 
       expect(result.status).toBe(201);
-      expect(result.body._id).toBeDefined();
-      expect(result.body._timestamp).toBeDefined();
-      expect(result.body._created).toBeDefined();
-      expect(result.body._removed).toBeNull();
-      expect(result.body.name).toBe(validBody.name);
-      expect(result.body.ownerCnpj).toBe(validBody.ownerCnpj);
     });
   });
 });

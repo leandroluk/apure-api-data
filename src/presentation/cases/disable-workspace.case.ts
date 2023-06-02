@@ -8,19 +8,17 @@ export class DisableWorkspaceCase implements IDisableWorkspaceCase {
     private readonly disableWorkspace: IDisableWorkspaceTask
   ) { }
 
-  async disable (
-    data: IDisableWorkspaceCase.Data
-  ): Promise<void> {
-    const authorized = await this.authorizeRequest.authorize(data.headers.authorization);
-    if (!authorized) {
+  async disable (data: IDisableWorkspaceCase.Data): Promise<void> {
+    const jwtAccount = await this.authorizeRequest.authorize(data.headers.authorization);
+    if (!jwtAccount) {
       throw new UnauthorizedError();
     }
     const isDisabled = await this.disableWorkspace.disable({
-      id: data.params._id,
+      id: data.params.workspace_id,
       sessionId: data.headers.sid
     });
     if (!isDisabled) {
-      throw new NotFoundError(`Workspace "${data.params._id}" not found`);
+      throw new NotFoundError(`Workspace "${data.params.workspace_id}" not found`);
     }
   }
 }

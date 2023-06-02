@@ -6,9 +6,7 @@ export class MockGetWorkspaceRepo implements IGetWorkspaceRepo {
     public $get: IGetWorkspaceRepo.Result = { ...mockWorkspace }
   ) { }
 
-  async get (
-    _id: IGetWorkspaceRepo.Id
-  ): Promise<IGetWorkspaceRepo.Result> {
+  async get (_id: IGetWorkspaceRepo.Id): Promise<IGetWorkspaceRepo.Result> {
     return this.$get;
   }
 }

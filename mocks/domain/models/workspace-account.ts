@@ -7,5 +7,5 @@ export const mockWorkspaceAccount: IWorkspaceAccount = {
   ...mockEntity,
   account_id: mockAccount._id,
   workspace_id: mockWorkspace._id,
-  roles: ["admin"]
+  roles: [IWorkspaceAccount.Role.Admin]
 };

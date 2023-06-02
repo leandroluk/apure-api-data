@@ -20,7 +20,7 @@ const makeSut = (): {
   const data: IEditWorkspaceCase.Data = {
     headers: { ...mockAuthenticatedHeader, sid: "sid" },
     params: {
-      _id: mockWorkspace._id
+      workspace_id: mockWorkspace._id
     },
     body: {
       name: "edited name",
@@ -63,6 +63,6 @@ describe("presentation/cases/edit-workspace.case", () => {
 
   it("should return edited workspace", async () => {
     const { sut, data } = makeSut();
-    await expect(sut.edit(data)).resolves.toBeDefined();
+    await expect(sut.edit(data)).resolves.toBeUndefined();
   });
 });

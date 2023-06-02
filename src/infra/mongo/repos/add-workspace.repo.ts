@@ -4,9 +4,7 @@ import { mongoHelper } from "../mongo.helper";
 import { workspaceSchema } from "../schemas";
 
 export class MongoAddWorkspaceRepo implements IAddWorkspaceRepo {
-  async add (
-    data: IAddWorkspaceRepo.Data
-  ): Promise<void> {
+  async add (data: IAddWorkspaceRepo.Data): Promise<void> {
     await mongoHelper
       .collection<IWorkspace>(workspaceSchema.collection)
       .insertOne(data.value, { session: mongoHelper.sessions[data.sessionId] });

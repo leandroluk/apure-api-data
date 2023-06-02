@@ -61,7 +61,7 @@ describe("presentation/tasks/add-workspace.case", () => {
   });
 
   it("should return added workspace", async () => {
-    const { addWorkspace, sut, data } = makeSut();
-    await expect(sut.add(data)).resolves.toMatchObject(addWorkspace.$add);
+    const { sut, data } = makeSut();
+    await expect(sut.add(data)).resolves.toBeUndefined();
   });
 });

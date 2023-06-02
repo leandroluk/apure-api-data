@@ -22,7 +22,7 @@ describe("tests/infra/mongo/repos/get-workspace.repo", () => {
     await expect(sut.get(id)).rejects.toThrow();
   });
 
-  it("should return account", async () => {
+  it("should return workspace", async () => {
     const { sut, id } = makeSut();
     jest.spyOn(mongoHelper, "collection")
       .mockReturnValueOnce({ find: np({ project: np({ toArray: np([{ ...mockWorkspace }]) }) }) } as any);

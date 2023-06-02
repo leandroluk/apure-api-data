@@ -6,9 +6,7 @@ export class MockAddWorkspaceAccountTask implements IAddWorkspaceAccountTask {
     public $add: IAddWorkspaceAccountTask.Result = { ...mockWorkspaceAccount }
   ) { }
 
-  async add (
-    _data: IAddWorkspaceAccountTask.Data
-  ): Promise<IAddWorkspaceAccountTask.Result> {
+  async add (_data: IAddWorkspaceAccountTask.Data): Promise<IAddWorkspaceAccountTask.Result> {
     return this.$add;
   }
 }
